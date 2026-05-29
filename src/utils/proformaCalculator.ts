@@ -77,9 +77,9 @@ export function recalculateProformaRows(
   let currentEtaIso = header.baseStartIso || rows[0]?.etaIso || BASE_PROFORMA_START_ISO;
 
   return rows.map((row, index) => {
-    const distanceNm = getDistance(distances, row.fromPort, row.toPort);
+    const distanceNm = getDistance(distances, row.fromPort, row.toPort) ?? row.distanceNm;
     const speed = row.speed || header.defaultSpeed || 0;
-    const sea = seaTimeHours(distanceNm, speed);
+    const sea = seaTimeHours(distanceNm, speed) ?? row.seaTimeHours;
     const etbIso = addHoursToIso(currentEtaIso, row.arrivalManvHours || 0);
     const etdIso = addHoursToIso(etbIso, (row.terminalHours || 0) + (row.departureManvHours || 0));
     const nextWithoutBuffer = sea === null ? etdIso : addHoursToIso(etdIso, sea);

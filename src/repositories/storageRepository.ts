@@ -1,6 +1,7 @@
 import type { MasterDataSet } from "../types/master";
 import type { CoastalSchedule, LongTermSchedule, ProformaSchedule } from "../types/schedule";
 import { demoMasterData } from "../data/demoData";
+import proformaSeeds from "../data/proformaSeeds.json";
 
 const KEYS = {
   master: "sm.masterData.v1",
@@ -39,6 +40,19 @@ function normalizeMasterData(value: MasterDataSet): MasterDataSet {
   };
 }
 
+function mergeSchedules(saved: ProformaSchedule[], seeded: ProformaSchedule[]): ProformaSchedule[] {
+  const merged = new Map<string, ProformaSchedule>();
+
+  seeded.forEach((schedule) => merged.set(schedule.header.id, schedule));
+  saved.forEach((schedule) => merged.set(schedule.header.id, schedule));
+
+  return Array.from(merged.values()).sort((a, b) => {
+    const serviceCompare = a.header.serviceCode.localeCompare(b.header.serviceCode);
+    if (serviceCompare !== 0) return serviceCompare;
+    return (a.header.versionName || "").localeCompare(b.header.versionName || "");
+  });
+}
+
 export const storageRepository = {
   getMasterData(): MasterDataSet {
     return normalizeMasterData(read(KEYS.master, demoMasterData));
@@ -49,11 +63,11 @@ export const storageRepository = {
   },
 
   listProformas(): ProformaSchedule[] {
-    return read(KEYS.proformas, []);
+    return mergeSchedules(read(KEYS.proformas, []), proformaSeeds as ProformaSchedule[]);
   },
 
   saveProforma(schedule: ProformaSchedule): void {
-    const list = storageRepository.listProformas();
+    const list = read<ProformaSchedule[]>(KEYS.proformas, []);
     const next = [schedule, ...list.filter((item) => item.header.id !== schedule.header.id)];
     write(KEYS.proformas, next);
   },

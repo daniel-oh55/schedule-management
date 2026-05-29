@@ -50,4 +50,16 @@ button {
   .auto-cell {
     @apply bg-teal-50 text-slate-900;
   }
+
+  .eta-cell {
+    @apply bg-sky-50 text-slate-900;
+  }
+
+  .etb-cell {
+    @apply bg-emerald-50 text-slate-900;
+  }
+
+  .etd-cell {
+    @apply bg-amber-50 text-slate-900;
+  }
 }

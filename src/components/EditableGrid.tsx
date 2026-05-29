@@ -26,7 +26,7 @@ export function EditableGrid<T>({ columns, rows, getRowKey, maxHeight = "560px" 
               {columns.map((column) => (
                 <th
                   key={column.key}
-                  className="border-b border-r border-slate-300 bg-slate-200 px-2 py-1.5 text-left font-semibold text-slate-700"
+                  className={`border-b border-r border-slate-300 bg-slate-200 px-2 py-1.5 text-left font-semibold text-slate-700 ${column.className ?? ""}`}
                   style={{ width: column.width, minWidth: column.width }}
                 >
                   {column.header}
