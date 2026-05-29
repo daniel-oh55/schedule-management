@@ -370,7 +370,19 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
       width: "118px",
       render: (row) => <TimeInput value={row.departureManvHours} onChange={(value) => updateRow(row.id, { departureManvHours: value })} />,
     },
-    { key: "distance", header: "Distance", width: "82px", align: "right", className: "auto-cell", render: (row) => row.distanceNm?.toLocaleString() ?? "" },
+    {
+      key: "distance",
+      header: "Distance",
+      width: "90px",
+      render: (row) => (
+        <NumberCellInput
+          className="text-right"
+          step="1"
+          value={row.distanceNm ?? 0}
+          onChange={(value) => updateRow(row.id, { distanceNm: value > 0 ? value : null })}
+        />
+      ),
+    },
     {
       key: "speed",
       header: "Speed",

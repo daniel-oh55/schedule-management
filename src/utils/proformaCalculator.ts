@@ -20,7 +20,9 @@ function rowKey(fromPort: string, toPort: string): string {
 }
 
 function updateRowMetrics(row: ProformaRow, header: ProformaHeader, distances: DistanceRecord[], seq: number): ProformaRow {
-  const distanceNm = getDistance(distances, row.fromPort, row.toPort) ?? row.distanceNm;
+  const distanceNm = row.manualFields.includes("distanceNm")
+    ? row.distanceNm
+    : getDistance(distances, row.fromPort, row.toPort) ?? row.distanceNm;
   const speed = row.speed || header.defaultSpeed || 0;
   const sea = seaTimeHours(distanceNm, speed) ?? row.seaTimeHours;
 
@@ -70,7 +72,9 @@ function recalculateFromIndex(
       return updateRowMetrics(rowWithEta, header, distances, index + 1);
     }
 
-    const distanceNm = getDistance(distances, rowWithEta.fromPort, rowWithEta.toPort) ?? rowWithEta.distanceNm;
+    const distanceNm = rowWithEta.manualFields.includes("distanceNm")
+      ? rowWithEta.distanceNm
+      : getDistance(distances, rowWithEta.fromPort, rowWithEta.toPort) ?? rowWithEta.distanceNm;
     const speed = rowWithEta.speed || header.defaultSpeed || 0;
     const sea = seaTimeHours(distanceNm, speed) ?? rowWithEta.seaTimeHours;
     const etbIso = addHoursToIso(rowWithEta.etaIso, rowWithEta.arrivalManvHours || 0);
