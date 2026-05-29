@@ -518,6 +518,8 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
                     placeholder={`Port ${index + 1}`}
                     value={port}
                     onChange={(event) => updateRotationPort(index, event.target.value)}
+                    onBlur={generateRows}
+                    onKeyDown={index === rotationDraft.length - 1 ? (e) => { if (e.key === "Enter") generateRows(); } : undefined}
                   />
                   {index < rotationDraft.length - 1 && <span className="text-slate-400">&gt;</span>}
                 </div>
