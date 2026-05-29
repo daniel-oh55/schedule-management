@@ -32,11 +32,24 @@ function mergeByCode<T>(saved: T[] | undefined, seeded: T[], getCode: (item: T) 
   return Array.from(merged.values());
 }
 
+function mergeDistances(
+  saved: MasterDataSet["distances"] | undefined,
+  seeded: MasterDataSet["distances"],
+): MasterDataSet["distances"] {
+  const merged = new Map<string, MasterDataSet["distances"][number]>();
+
+  seeded.forEach((item) => merged.set(`${item.fromPort.toUpperCase()}__${item.toPort.toUpperCase()}`, item));
+  saved?.forEach((item) => merged.set(`${item.fromPort.toUpperCase()}__${item.toPort.toUpperCase()}`, item));
+
+  return Array.from(merged.values());
+}
+
 function normalizeMasterData(value: MasterDataSet): MasterDataSet {
   return {
     ...value,
     services: mergeByCode(value.services, demoMasterData.services, (service) => service.serviceCode),
     vessels: mergeByCode(value.vessels, demoMasterData.vessels, (vessel) => vessel.vesselCode),
+    distances: mergeDistances(value.distances, demoMasterData.distances),
   };
 }
 

@@ -17,7 +17,7 @@ import {
   buildProformaRows,
   makeEmptyProforma,
   parsePortRotation,
-  recalculateEditedProformaRow,
+  recalculateProformaFromRow,
   recalculateProformaMetrics,
   summarizeProforma,
 } from "../utils/proformaCalculator";
@@ -144,27 +144,26 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
   }
 
   function updateRow(rowId: string, patch: Partial<ProformaRow>) {
-    const timingChanged = ["etaIso", "arrivalManvHours", "terminalHours", "departureManvHours"].some((key) =>
-      Object.prototype.hasOwnProperty.call(patch, key),
-    );
-
     setSchedule((current) => {
+      const changedIndex = current.rows.findIndex((row) => row.id === rowId);
       const rows = current.rows.map((row) =>
         row.id === rowId
-          ? recalculateEditedProformaRow(
-              {
-                ...row,
-                ...patch,
-                manualFields: Array.from(new Set([...row.manualFields, ...Object.keys(patch)])),
-              },
-              timingChanged,
-            )
+          ? {
+              ...row,
+              ...patch,
+              manualFields: Array.from(new Set([...row.manualFields, ...Object.keys(patch)])),
+            }
           : row,
       );
 
       return {
         ...current,
-        rows: recalculateProformaMetrics(current.header, rows, appContext.masterData.distances),
+        rows: recalculateProformaFromRow(
+          current.header,
+          rows,
+          appContext.masterData.distances,
+          changedIndex < 0 ? 0 : changedIndex,
+        ),
       };
     });
   }

@@ -30,13 +30,81 @@ function updateRowMetrics(row: ProformaRow, header: ProformaHeader, distances: D
     distanceNm,
     speed,
     seaTimeHours: sea,
-    totalTimeHours: sea === null ? null : sea + (row.bufferHours || 0),
+    totalTimeHours:
+      sea === null
+        ? null
+        : (row.arrivalManvHours || 0) +
+          (row.terminalHours || 0) +
+          (row.departureManvHours || 0) +
+          sea +
+          (row.bufferHours || 0),
   };
+}
+
+function recalculateFromIndex(
+  header: ProformaHeader,
+  rows: ProformaRow[],
+  distances: DistanceRecord[],
+  startIndex: number,
+): ProformaRow[] {
+  if (!rows.length) return rows;
+
+  let previousEtdIso = rows[Math.max(0, startIndex - 1)]?.etdIso;
+  let previousDepartureManv = rows[Math.max(0, startIndex - 1)]?.departureManvHours ?? 0;
+  let previousSea = rows[Math.max(0, startIndex - 1)]?.seaTimeHours ?? 0;
+  let previousBuffer = rows[Math.max(0, startIndex - 1)]?.bufferHours ?? 0;
+
+  return rows.map((row, index) => {
+    const rowWithEta =
+      index < startIndex
+        ? row
+        : {
+            ...row,
+            etaIso:
+              index === 0
+                ? row.etaIso || header.baseStartIso || BASE_PROFORMA_START_ISO
+                : addHoursToIso(previousEtdIso, previousDepartureManv + previousSea + previousBuffer),
+          };
+
+    if (index < startIndex) {
+      return updateRowMetrics(rowWithEta, header, distances, index + 1);
+    }
+
+    const distanceNm = getDistance(distances, rowWithEta.fromPort, rowWithEta.toPort) ?? rowWithEta.distanceNm;
+    const speed = rowWithEta.speed || header.defaultSpeed || 0;
+    const sea = seaTimeHours(distanceNm, speed) ?? rowWithEta.seaTimeHours;
+    const etbIso = addHoursToIso(rowWithEta.etaIso, rowWithEta.arrivalManvHours || 0);
+    const etdIso = addHoursToIso(etbIso, rowWithEta.terminalHours || 0);
+    const recalculated = {
+      ...rowWithEta,
+      seq: index + 1,
+      distanceNm,
+      speed,
+      seaTimeHours: sea,
+      etbIso,
+      etdIso,
+      totalTimeHours:
+        sea === null
+          ? null
+          : (rowWithEta.arrivalManvHours || 0) +
+            (rowWithEta.terminalHours || 0) +
+            (rowWithEta.departureManvHours || 0) +
+            sea +
+            (rowWithEta.bufferHours || 0),
+    };
+
+    previousEtdIso = recalculated.etdIso;
+    previousDepartureManv = recalculated.departureManvHours || 0;
+    previousSea = recalculated.seaTimeHours || 0;
+    previousBuffer = recalculated.bufferHours || 0;
+
+    return recalculated;
+  });
 }
 
 function recalculateSingleRowTimes(row: ProformaRow): ProformaRow {
   const etbIso = addHoursToIso(row.etaIso, row.arrivalManvHours || 0);
-  const etdIso = addHoursToIso(etbIso, (row.terminalHours || 0) + (row.departureManvHours || 0));
+  const etdIso = addHoursToIso(etbIso, row.terminalHours || 0);
   return { ...row, etbIso, etdIso };
 }
 
@@ -60,10 +128,10 @@ export function buildProformaRows(
     const terminalHours = master?.defaultTerminalHours ?? 18;
     const departureManvHours = master?.defaultDepartureManvHours ?? 1;
     const etbIso = addHoursToIso(currentEtaIso, arrivalManvHours);
-    const etdIso = addHoursToIso(etbIso, terminalHours + departureManvHours);
-    const rawNextEtaIso = sea === null ? etdIso : addHoursToIso(etdIso, sea);
+    const etdIso = addHoursToIso(etbIso, terminalHours);
+    const rawNextEtaIso = sea === null ? addHoursToIso(etdIso, departureManvHours) : addHoursToIso(etdIso, departureManvHours + sea);
     const bufferHours = index < rotation.length - 2 ? roundUpBufferToNextHourHours(rawNextEtaIso) : 0;
-    const totalTimeHours = sea === null ? null : sea + bufferHours;
+    const totalTimeHours = sea === null ? null : arrivalManvHours + terminalHours + departureManvHours + sea + bufferHours;
 
     rows.push({
       id: createId("pfrow"),
@@ -106,9 +174,16 @@ export function recalculateProformaRows(
     const speed = row.speed || header.defaultSpeed || 0;
     const sea = seaTimeHours(distanceNm, speed) ?? row.seaTimeHours;
     const etbIso = addHoursToIso(currentEtaIso, row.arrivalManvHours || 0);
-    const etdIso = addHoursToIso(etbIso, (row.terminalHours || 0) + (row.departureManvHours || 0));
-    const nextWithoutBuffer = sea === null ? etdIso : addHoursToIso(etdIso, sea);
-    const totalTimeHours = sea === null ? null : sea + (row.bufferHours || 0);
+    const etdIso = addHoursToIso(etbIso, row.terminalHours || 0);
+    const nextWithoutBuffer = sea === null ? addHoursToIso(etdIso, row.departureManvHours || 0) : addHoursToIso(etdIso, (row.departureManvHours || 0) + sea);
+    const totalTimeHours =
+      sea === null
+        ? null
+        : (row.arrivalManvHours || 0) +
+          (row.terminalHours || 0) +
+          (row.departureManvHours || 0) +
+          sea +
+          (row.bufferHours || 0);
     const recalculated = {
       ...row,
       seq: index + 1,
@@ -136,6 +211,15 @@ export function recalculateProformaMetrics(
 
 export function recalculateEditedProformaRow(row: ProformaRow, timingChanged: boolean): ProformaRow {
   return timingChanged ? recalculateSingleRowTimes(row) : row;
+}
+
+export function recalculateProformaFromRow(
+  header: ProformaHeader,
+  rows: ProformaRow[],
+  distances: DistanceRecord[],
+  changedIndex: number,
+): ProformaRow[] {
+  return recalculateFromIndex(header, rows, distances, Math.max(0, changedIndex));
 }
 
 export function applyPortRotationToProformaRows(
@@ -195,7 +279,7 @@ export function applyPortRotationToProformaRows(
     });
   }
 
-  return nextRows;
+  return recalculateFromIndex(header, nextRows, distances, 0);
 }
 
 export function summarizeProforma(rows: ProformaRow[]) {
