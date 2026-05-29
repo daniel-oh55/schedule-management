@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
-import { Download, FilePlus2, Plus, RotateCw, Save, Upload } from "lucide-react";
+import { Download, FilePlus2, Plus, Search, Save, Upload } from "lucide-react";
 import type { AppContext } from "../App";
 import { EditableGrid, type GridColumn } from "../components/EditableGrid";
 import { Panel } from "../components/Panel";
@@ -41,6 +41,8 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
   const [schedule, setSchedule] = useState<ProformaSchedule>(() => {
     return createInitialSchedule();
   });
+  const [serviceQuery, setServiceQuery] = useState("");
+  const [rotationDraft, setRotationDraft] = useState<string[]>(Array.from({ length: 8 }, () => ""));
   const [rotationSlotCount, setRotationSlotCount] = useState(8);
 
   useEffect(() => {
@@ -50,37 +52,38 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
     }));
   }, [appContext.masterData.distances]);
 
+  useEffect(() => {
+    setServiceQuery(schedule.header.serviceCode);
+  }, [schedule.header.serviceCode]);
+
   const summary = useMemo(() => summarizeProforma(schedule.rows), [schedule.rows]);
-  const rotationPorts = useMemo(() => parsePortRotation(schedule.header.portRotationText), [schedule.header.portRotationText]);
-  const rotationInputCount = Math.max(rotationSlotCount, rotationPorts.length + 1);
-  const rotationInputs = Array.from({ length: rotationInputCount }, (_, index) => rotationPorts[index] ?? "");
   const serviceProformas = useMemo(
     () =>
-      schedule.header.serviceCode
+      serviceQuery
         ? appContext.proformas.filter(
-            (item) => item.header.serviceCode.toUpperCase() === schedule.header.serviceCode.toUpperCase(),
+            (item) => item.header.serviceCode.toUpperCase() === serviceQuery.toUpperCase(),
           )
         : appContext.proformas,
-    [appContext.proformas, schedule.header.serviceCode],
+    [appContext.proformas, serviceQuery],
   );
 
-  function setRotationPorts(ports: string[]) {
-    updateHeader({
-      portRotationText: ports
-        .map((port) => port.trim().toUpperCase())
-        .filter(Boolean)
-        .join(" > "),
-    });
+  function syncRotationDraftFromText(text: string) {
+    const ports = parsePortRotation(text);
+    setRotationDraft(Array.from({ length: Math.max(8, ports.length + 1) }, (_, index) => ports[index] ?? ""));
+    setRotationSlotCount(Math.max(8, ports.length + 1));
   }
 
   function updateRotationPort(index: number, value: string) {
-    const next = [...rotationInputs];
-    next[index] = value.toUpperCase();
-    setRotationPorts(next);
+    setRotationDraft((current) => {
+      const next = [...current];
+      next[index] = value.toUpperCase();
+      return next;
+    });
   }
 
   function addRotationPort() {
     setRotationSlotCount((count) => count + 1);
+    setRotationDraft((current) => [...current, ""]);
   }
 
   function updateHeader(patch: Partial<ProformaHeader>) {
@@ -103,9 +106,21 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
   }
 
   function generateRows() {
+    const portRotationText = rotationDraft
+      .map((port) => port.trim().toUpperCase())
+      .filter(Boolean)
+      .join(" > ");
+
     setSchedule((current) => ({
-      header: { ...current.header, baseStartIso: current.header.baseStartIso || BASE_PROFORMA_START_ISO },
-      rows: buildProformaRows(current.header, appContext.masterData.ports, appContext.masterData.distances),
+      header: { ...current.header, portRotationText, baseStartIso: current.header.baseStartIso || BASE_PROFORMA_START_ISO },
+      rows: buildProformaRows(
+        {
+          ...current.header,
+          portRotationText,
+        },
+        appContext.masterData.ports,
+        appContext.masterData.distances,
+      ),
     }));
   }
 
@@ -145,7 +160,16 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
   function save() {
     storageRepository.saveProforma({
       ...schedule,
-      header: { ...schedule.header, versionName: schedule.header.versionName || "V1", updatedAtIso: new Date().toISOString() },
+      header: {
+        ...schedule.header,
+        portRotationText: rotationDraft
+          .map((port) => port.trim().toUpperCase())
+          .filter(Boolean)
+          .join(" > "),
+        versionName: schedule.header.versionName || "V1",
+        versionRemark: schedule.header.versionRemark || "",
+        updatedAtIso: new Date().toISOString(),
+      },
     });
     appContext.refresh();
   }
@@ -153,20 +177,23 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
   function load(proformaId: string) {
     const saved = storageRepository.getProforma(proformaId);
     if (saved) {
-      setRotationSlotCount(Math.max(8, parsePortRotation(saved.header.portRotationText).length + 1));
+      syncRotationDraftFromText(saved.header.portRotationText);
       setSchedule({
         ...saved,
-        header: { ...saved.header, versionName: saved.header.versionName || "V1" },
+        header: { ...saved.header, versionName: saved.header.versionName || "V1", versionRemark: saved.header.versionRemark || "" },
       });
     }
   }
 
   function clear() {
     setRotationSlotCount(8);
+    setRotationDraft(Array.from({ length: 8 }, () => ""));
+    setServiceQuery("");
     setSchedule(createInitialSchedule());
   }
 
-  function selectServiceCode(serviceCode: string) {
+  function searchServiceCode() {
+    const serviceCode = serviceQuery.trim().toUpperCase();
     const service = findService(appContext.masterData.services, serviceCode);
     const matched = appContext.proformas
       .filter((item) => item.header.serviceCode.toUpperCase() === serviceCode.trim().toUpperCase())
@@ -199,6 +226,7 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
           ...current.header,
           id: createId("proforma"),
           versionName: `V${sameServiceCount + 1}`,
+          versionRemark: "",
           updatedAtIso: new Date().toISOString(),
         },
         rows: current.rows.map((row) => ({ ...row, id: createId("pfrow") })),
@@ -210,7 +238,8 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
     const file = event.target.files?.[0];
     if (!file) return;
     const imported = await readJsonFile<ProformaSchedule>(file);
-    setSchedule(imported);
+    syncRotationDraftFromText(imported.header.portRotationText);
+    setSchedule({ ...imported, header: { ...imported.header, versionRemark: imported.header.versionRemark || "" } });
     event.target.value = "";
   }
 
@@ -303,7 +332,7 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
               <option value="">Load saved Proforma</option>
               {serviceProformas.map((item) => (
                 <option key={item.header.id} value={item.header.id}>
-                  {item.header.serviceCode} / {item.header.versionName || "V1"} - {item.header.serviceName}
+                  {item.header.versionName || "V1"} {item.header.versionRemark ? `- ${item.header.versionRemark}` : ""}
                 </option>
               ))}
             </select>
@@ -329,12 +358,18 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
         <div className="grid grid-cols-[140px_220px_110px_120px_110px_110px_120px_auto] gap-2">
           <label>
             <div className="field-label">Service Code</div>
-            <ServiceCodeInput
-              id="proforma-service-code"
-              services={appContext.masterData.services}
-              value={schedule.header.serviceCode}
-              onChange={selectServiceCode}
-            />
+            <div className="flex gap-1">
+              <ServiceCodeInput
+                id="proforma-service-code"
+                services={appContext.masterData.services}
+                value={serviceQuery}
+                onChange={setServiceQuery}
+                className="field-input"
+              />
+              <button className="action-button h-8 w-8 justify-center px-0" type="button" onClick={searchServiceCode} title="Search service">
+                <Search size={15} />
+              </button>
+            </div>
           </label>
           <label>
             <div className="field-label">Service Name</div>
@@ -342,7 +377,23 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
           </label>
           <label>
             <div className="field-label">Version</div>
-            <input className="field-input" value={schedule.header.versionName || "V1"} onChange={(e) => updateHeader({ versionName: e.target.value })} />
+            <select className="field-input" value={schedule.header.id} onChange={(event) => load(event.target.value)}>
+              <option value="">New version</option>
+              {serviceProformas.map((item) => (
+                <option key={item.header.id} value={item.header.id}>
+                  {item.header.versionName || "V1"}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="col-span-2">
+            <div className="field-label">Version Remark</div>
+            <input
+              className="field-input"
+              value={schedule.header.versionRemark || ""}
+              onChange={(event) => updateHeader({ versionRemark: event.target.value })}
+              placeholder="e.g. 2026 base rotation"
+            />
           </label>
           <label>
             <div className="field-label">Default Speed</div>
@@ -360,9 +411,6 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
             <div className="field-label">Base ETA Date</div>
             <input className="field-input" type="date" value={formatDate(schedule.header.baseStartIso)} onChange={(e) => updateFirstEtaDate(e.target.value)} />
           </label>
-          <button className="primary-button mt-[18px]" type="button" onClick={generateRows}>
-            <RotateCw size={15} /> Generate
-          </button>
         </div>
         <div className="mt-2 grid grid-cols-[120px_1fr] gap-2">
           <label>
@@ -376,21 +424,26 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
         <div className="mt-3">
           <div className="mb-1 flex items-center justify-between">
             <div className="field-label">Port Rotation</div>
-            <button className="action-button h-7" type="button" onClick={addRotationPort}>
-              <Plus size={14} /> Add Port
-            </button>
+            <div className="flex items-center gap-2">
+              <button className="primary-button h-7" type="button" onClick={generateRows}>
+                Generate
+              </button>
+              <button className="action-button h-7" type="button" onClick={addRotationPort}>
+                <Plus size={14} /> Add Port
+              </button>
+            </div>
           </div>
           <div className="overflow-x-auto border border-slate-300 bg-slate-50 p-2">
             <div className="flex min-w-max items-center gap-1">
-              {rotationInputs.map((port, index) => (
-                <div key={`${index}-${port}`} className="flex items-center gap-1">
+              {rotationDraft.map((port, index) => (
+                <div key={`rotation-port-${index}`} className="flex items-center gap-1">
                   <input
                     className="h-8 w-24 rounded border border-slate-300 bg-white px-2 text-sm font-semibold uppercase outline-none focus:border-port focus:ring-2 focus:ring-blue-100"
                     placeholder={`Port ${index + 1}`}
                     value={port}
                     onChange={(event) => updateRotationPort(index, event.target.value)}
                   />
-                  {index < rotationInputs.length - 1 && <span className="text-slate-400">&gt;</span>}
+                  {index < rotationDraft.length - 1 && <span className="text-slate-400">&gt;</span>}
                 </div>
               ))}
             </div>

@@ -43,8 +43,18 @@ function normalizeMasterData(value: MasterDataSet): MasterDataSet {
 function mergeSchedules(saved: ProformaSchedule[], seeded: ProformaSchedule[]): ProformaSchedule[] {
   const merged = new Map<string, ProformaSchedule>();
 
-  seeded.forEach((schedule) => merged.set(schedule.header.id, schedule));
-  saved.forEach((schedule) => merged.set(schedule.header.id, schedule));
+  seeded.forEach((schedule) =>
+    merged.set(schedule.header.id, {
+      ...schedule,
+      header: { ...schedule.header, versionRemark: schedule.header.versionRemark ?? "" },
+    }),
+  );
+  saved.forEach((schedule) =>
+    merged.set(schedule.header.id, {
+      ...schedule,
+      header: { ...schedule.header, versionRemark: schedule.header.versionRemark ?? "" },
+    }),
+  );
 
   return Array.from(merged.values()).sort((a, b) => {
     const serviceCompare = a.header.serviceCode.localeCompare(b.header.serviceCode);
@@ -63,7 +73,7 @@ export const storageRepository = {
   },
 
   listProformas(): ProformaSchedule[] {
-    return mergeSchedules(read(KEYS.proformas, []), proformaSeeds as ProformaSchedule[]);
+    return mergeSchedules(read(KEYS.proformas, []), proformaSeeds as unknown as ProformaSchedule[]);
   },
 
   saveProforma(schedule: ProformaSchedule): void {

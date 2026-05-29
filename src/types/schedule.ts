@@ -5,6 +5,7 @@ export interface ProformaHeader {
   serviceCode: string;
   serviceName: string;
   versionName: string;
+  versionRemark: string;
   defaultSpeed: number;
   cycleDays: number;
   cycleWeeks: number;

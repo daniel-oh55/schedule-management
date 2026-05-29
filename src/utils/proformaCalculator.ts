@@ -131,6 +131,7 @@ export function makeEmptyProforma(): ProformaSchedule {
       serviceCode: "",
       serviceName: "",
       versionName: "",
+      versionRemark: "",
       defaultSpeed: 0,
       cycleDays: 0,
       cycleWeeks: 0,
