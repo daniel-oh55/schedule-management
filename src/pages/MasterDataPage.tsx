@@ -8,6 +8,7 @@ import type { DistanceRecord, MasterDataSet, PortMaster, ServiceMaster, VesselMa
 import { parseDistanceFile } from "../utils/excelDistanceParser";
 import { downloadJson, readJsonFile } from "../utils/jsonTransfer";
 import { parseServiceCodeFile } from "../utils/serviceCodeParser";
+import { parseVesselCodeFile } from "../utils/vesselCodeParser";
 
 interface MasterDataPageProps {
   appContext: AppContext;
@@ -41,11 +42,24 @@ export function MasterDataPage({ appContext }: MasterDataPageProps) {
     event.target.value = "";
   }
 
+  async function handleVesselUpload(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const vessels = await parseVesselCodeFile(file);
+    setMasterData((current) => ({ ...current, vessels }));
+    setMessage(`${vessels.length.toLocaleString()} vessel codes parsed from ${file.name}.`);
+    event.target.value = "";
+  }
+
   async function importJson(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) return;
     const imported = await readJsonFile<MasterDataSet>(file);
-    setMasterData({ ...imported, services: imported.services ?? appContext.masterData.services });
+    setMasterData({
+      ...imported,
+      services: imported.services ?? appContext.masterData.services,
+      vessels: imported.vessels ?? appContext.masterData.vessels,
+    });
     event.target.value = "";
   }
 
@@ -123,6 +137,10 @@ export function MasterDataPage({ appContext }: MasterDataPageProps) {
           <label className="action-button cursor-pointer">
             <Upload size={15} /> Import Service Code XLS/XLSX
             <input className="hidden" type="file" accept=".xlsx,.xls" onChange={handleServiceUpload} />
+          </label>
+          <label className="action-button cursor-pointer">
+            <Upload size={15} /> Import Vessel List XLS/XLSX
+            <input className="hidden" type="file" accept=".xlsx,.xls" onChange={handleVesselUpload} />
           </label>
           <div className="text-sm text-slate-600">{message || "Distance matrix parser reads the first sheet and converts numeric matrix cells into From-To records."}</div>
         </div>

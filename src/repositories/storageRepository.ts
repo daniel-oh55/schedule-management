@@ -22,10 +22,20 @@ function write<T>(key: string, value: T): void {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
+function mergeByCode<T>(saved: T[] | undefined, seeded: T[], getCode: (item: T) => string): T[] {
+  const merged = new Map<string, T>();
+
+  seeded.forEach((item) => merged.set(getCode(item).toUpperCase(), item));
+  saved?.forEach((item) => merged.set(getCode(item).toUpperCase(), item));
+
+  return Array.from(merged.values());
+}
+
 function normalizeMasterData(value: MasterDataSet): MasterDataSet {
   return {
     ...value,
-    services: value.services?.length ? value.services : demoMasterData.services,
+    services: mergeByCode(value.services, demoMasterData.services, (service) => service.serviceCode),
+    vessels: mergeByCode(value.vessels, demoMasterData.vessels, (vessel) => vessel.vesselCode),
   };
 }
 

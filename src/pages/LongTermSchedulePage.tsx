@@ -6,10 +6,12 @@ import { EditableGrid, type GridColumn } from "../components/EditableGrid";
 import { MiniCalendar } from "../components/MiniCalendar";
 import { Panel } from "../components/Panel";
 import { ServiceCodeInput } from "../components/ServiceCodeInput";
+import { VesselCodeInput } from "../components/VesselCodeInput";
 import { storageRepository } from "../repositories/storageRepository";
 import type { LongTermRow, LongTermSchedule } from "../types/schedule";
 import { generateLongTermSchedule } from "../utils/longTermGenerator";
 import { findService } from "../utils/service";
+import { findVessel } from "../utils/vessel";
 import { combineDateTime, formatDate, formatDuration, formatTime, setIsoDate, setIsoTime } from "../utils/time";
 
 interface LongTermSchedulePageProps {
@@ -47,8 +49,9 @@ export function LongTermSchedulePage({ appContext }: LongTermSchedulePageProps) 
     : null;
 
   function selectVessel(code: string) {
-    const vessel = appContext.masterData.vessels.find((item) => item.vesselCode === code);
-    setVesselCode(code);
+    const nextCode = code.toUpperCase();
+    const vessel = findVessel(appContext.masterData.vessels, nextCode);
+    setVesselCode(nextCode);
     setVesselName(vessel?.vesselName ?? "");
   }
 
@@ -155,14 +158,13 @@ export function LongTermSchedulePage({ appContext }: LongTermSchedulePageProps) 
               </select>
             </label>
             <label>
-              <div className="field-label">Vessel</div>
-              <select className="field-input" value={vesselCode} onChange={(e) => selectVessel(e.target.value)}>
-                {appContext.masterData.vessels.map((item) => (
-                  <option key={item.id} value={item.vesselCode}>
-                    {item.vesselCode}
-                  </option>
-                ))}
-              </select>
+              <div className="field-label">Vessel Code</div>
+              <VesselCodeInput
+                id="longterm-vessel-code"
+                vessels={appContext.masterData.vessels}
+                value={vesselCode}
+                onChange={selectVessel}
+              />
             </label>
             <label className="col-span-2">
               <div className="field-label">Vessel Name</div>

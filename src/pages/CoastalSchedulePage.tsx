@@ -4,10 +4,12 @@ import type { AppContext } from "../App";
 import { EditableGrid, type GridColumn } from "../components/EditableGrid";
 import { Panel } from "../components/Panel";
 import { ServiceCodeInput } from "../components/ServiceCodeInput";
+import { VesselCodeInput } from "../components/VesselCodeInput";
 import { storageRepository } from "../repositories/storageRepository";
 import type { CoastalRow, CoastalSchedule } from "../types/schedule";
 import { createCoastalFromLongTerm, recalculateCoastalRows } from "../utils/coastalCalculator";
 import { findService } from "../utils/service";
+import { findVessel } from "../utils/vessel";
 import { formatDate, formatDelay, formatDuration, formatTime, setIsoDate, setIsoTime } from "../utils/time";
 
 interface CoastalSchedulePageProps {
@@ -16,13 +18,16 @@ interface CoastalSchedulePageProps {
 
 export function CoastalSchedulePage({ appContext }: CoastalSchedulePageProps) {
   const [serviceCode, setServiceCode] = useState(appContext.longTerms[0]?.serviceCode ?? "");
+  const [vesselCode, setVesselCode] = useState(appContext.longTerms[0]?.vesselCode ?? "");
   const [longTermId, setLongTermId] = useState(appContext.longTerms[0]?.id ?? "");
   const filteredLongTerms = useMemo(
     () =>
-      serviceCode
-        ? appContext.longTerms.filter((item) => item.serviceCode.toUpperCase() === serviceCode.toUpperCase())
-        : appContext.longTerms,
-    [appContext.longTerms, serviceCode],
+      appContext.longTerms.filter((item) => {
+        const serviceMatch = serviceCode ? item.serviceCode.toUpperCase() === serviceCode.toUpperCase() : true;
+        const vesselMatch = vesselCode ? item.vesselCode.toUpperCase() === vesselCode.toUpperCase() : true;
+        return serviceMatch && vesselMatch;
+      }),
+    [appContext.longTerms, serviceCode, vesselCode],
   );
   const selectedLongTerm = useMemo(
     () => appContext.longTerms.find((item) => item.id === longTermId),
@@ -32,12 +37,31 @@ export function CoastalSchedulePage({ appContext }: CoastalSchedulePageProps) {
   const [voyage, setVoyage] = useState(voyages[0] ?? "");
   const [schedule, setSchedule] = useState<CoastalSchedule | null>(null);
   const serviceName = findService(appContext.masterData.services, serviceCode)?.serviceName ?? selectedLongTerm?.serviceCode ?? "";
+  const vesselName = findVessel(appContext.masterData.vessels, vesselCode)?.vesselName ?? selectedLongTerm?.vesselName ?? "";
 
   function selectServiceCode(code: string) {
     const nextCode = code.toUpperCase();
-    const nextLongTerm = appContext.longTerms.find((item) => item.serviceCode.toUpperCase() === nextCode);
+    const nextLongTerm = appContext.longTerms.find(
+      (item) =>
+        item.serviceCode.toUpperCase() === nextCode &&
+        (vesselCode ? item.vesselCode.toUpperCase() === vesselCode.toUpperCase() : true),
+    );
     const nextVoyages = Array.from(new Set(nextLongTerm?.rows.map((row) => row.voyage) ?? []));
     setServiceCode(nextCode);
+    setLongTermId(nextLongTerm?.id ?? "");
+    setVoyage(nextVoyages[0] ?? "");
+    setSchedule(null);
+  }
+
+  function selectVesselCode(code: string) {
+    const nextCode = code.toUpperCase();
+    const nextLongTerm = appContext.longTerms.find(
+      (item) =>
+        item.vesselCode.toUpperCase() === nextCode &&
+        (serviceCode ? item.serviceCode.toUpperCase() === serviceCode.toUpperCase() : true),
+    );
+    const nextVoyages = Array.from(new Set(nextLongTerm?.rows.map((row) => row.voyage) ?? []));
+    setVesselCode(nextCode);
     setLongTermId(nextLongTerm?.id ?? "");
     setVoyage(nextVoyages[0] ?? "");
     setSchedule(null);
@@ -47,6 +71,8 @@ export function CoastalSchedulePage({ appContext }: CoastalSchedulePageProps) {
     const nextLongTerm = appContext.longTerms.find((item) => item.id === id);
     const nextVoyages = Array.from(new Set(nextLongTerm?.rows.map((row) => row.voyage) ?? []));
     setLongTermId(id);
+    setServiceCode(nextLongTerm?.serviceCode ?? serviceCode);
+    setVesselCode(nextLongTerm?.vesselCode ?? vesselCode);
     setVoyage(nextVoyages[0] ?? "");
     setSchedule(null);
   }
@@ -125,7 +151,7 @@ export function CoastalSchedulePage({ appContext }: CoastalSchedulePageProps) {
           </div>
         }
       >
-        <div className="grid grid-cols-[140px_260px_340px_120px_1fr] gap-2">
+        <div className="grid grid-cols-[130px_220px_130px_220px_320px_120px_1fr] gap-2">
           <label>
             <div className="field-label">Service Code</div>
             <ServiceCodeInput
@@ -138,6 +164,19 @@ export function CoastalSchedulePage({ appContext }: CoastalSchedulePageProps) {
           <label>
             <div className="field-label">Service Name</div>
             <input className="field-input readonly-cell" value={serviceName} readOnly />
+          </label>
+          <label>
+            <div className="field-label">Vessel Code</div>
+            <VesselCodeInput
+              id="coastal-vessel-code"
+              vessels={appContext.masterData.vessels}
+              value={vesselCode}
+              onChange={selectVesselCode}
+            />
+          </label>
+          <label>
+            <div className="field-label">Vessel Name</div>
+            <input className="field-input readonly-cell" value={vesselName} readOnly />
           </label>
           <label>
             <div className="field-label">Long Term Schedule</div>

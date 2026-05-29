@@ -1,0 +1,274 @@
+[
+  {
+    "vesselCode": "AKTR",
+    "vesselName": "AKITA TRADER"
+  },
+  {
+    "vesselCode": "ATPR",
+    "vesselName": "ATLANTIC PIONEER"
+  },
+  {
+    "vesselCode": "ATSH",
+    "vesselName": "ATLANTIC SOUTH"
+  },
+  {
+    "vesselCode": "CNVY",
+    "vesselName": "CHENNAI VOYAGER"
+  },
+  {
+    "vesselCode": "HAB",
+    "vesselName": "HEUNG-A BANGKOK"
+  },
+  {
+    "vesselCode": "HAHM",
+    "vesselName": "HEUNG-A HOCHIMINH"
+  },
+  {
+    "vesselCode": "HAHP",
+    "vesselName": "HEUNG-A HAIPHONG"
+  },
+  {
+    "vesselCode": "HAJN",
+    "vesselName": "HEUNG-A JANICE"
+  },
+  {
+    "vesselCode": "HAKT",
+    "vesselName": "HEUNG-A AKITA"
+  },
+  {
+    "vesselCode": "HASR",
+    "vesselName": "HEUNG-A SARAH"
+  },
+  {
+    "vesselCode": "HAXM",
+    "vesselName": "HEUNG-A XIAMEN"
+  },
+  {
+    "vesselCode": "HAYN",
+    "vesselName": "HEUNG-A YOUNG"
+  },
+  {
+    "vesselCode": "HKEP",
+    "vesselName": "HAKATA EXPRESS"
+  },
+  {
+    "vesselCode": "HKVY",
+    "vesselName": "HONGKONG VOYAGER"
+  },
+  {
+    "vesselCode": "HMVY",
+    "vesselName": "HOCHIMINH VOYAGER"
+  },
+  {
+    "vesselCode": "HRON",
+    "vesselName": "HONOR OCEAN"
+  },
+  {
+    "vesselCode": "HSWH",
+    "vesselName": "HANSUNG WEIHAI"
+  },
+  {
+    "vesselCode": "HTK",
+    "vesselName": "HEUNG-A TOKYO"
+  },
+  {
+    "vesselCode": "HTVY",
+    "vesselName": "HAKATA VOYAGER"
+  },
+  {
+    "vesselCode": "ICVY",
+    "vesselName": "INCHEON VOYAGER"
+  },
+  {
+    "vesselCode": "JKVY",
+    "vesselName": "JAKARTA VOYAGER"
+  },
+  {
+    "vesselCode": "KBTR",
+    "vesselName": "KOBE TRADER"
+  },
+  {
+    "vesselCode": "KYVY",
+    "vesselName": "KWANGYANG VOYAGER"
+  },
+  {
+    "vesselCode": "LCVY",
+    "vesselName": "LAEM CHABANG VOYAGER"
+  },
+  {
+    "vesselCode": "MBBG",
+    "vesselName": "MUMBAI BRIDGE"
+  },
+  {
+    "vesselCode": "MEBG",
+    "vesselName": "MELBOURNE BRIDGE"
+  },
+  {
+    "vesselCode": "MJEP",
+    "vesselName": "MOJI EXPRESS"
+  },
+  {
+    "vesselCode": "NBTD",
+    "vesselName": "NINGBO TRADER"
+  },
+  {
+    "vesselCode": "NBVY",
+    "vesselName": "NINGBO VOYAGER"
+  },
+  {
+    "vesselCode": "NGTR",
+    "vesselName": "NAGOYA TRADER"
+  },
+  {
+    "vesselCode": "OSVY",
+    "vesselName": "OSAKA VOYAGER"
+  },
+  {
+    "vesselCode": "PCBJ",
+    "vesselName": "PACIFIC BEIJING"
+  },
+  {
+    "vesselCode": "PCBS",
+    "vesselName": "PACIFIC BUSAN"
+  },
+  {
+    "vesselCode": "PCNB",
+    "vesselName": "PACIFIC NINGBO"
+  },
+  {
+    "vesselCode": "PCSG",
+    "vesselName": "PACIFIC SINGAPORE"
+  },
+  {
+    "vesselCode": "PCSZ",
+    "vesselName": "PACIFIC SHENZHEN"
+  },
+  {
+    "vesselCode": "PCTJ",
+    "vesselName": "PACIFIC TIANJIN"
+  },
+  {
+    "vesselCode": "QDTR",
+    "vesselName": "QINGDAO TRADER"
+  },
+  {
+    "vesselCode": "QDVY",
+    "vesselName": "QINGDAO VOYAGER"
+  },
+  {
+    "vesselCode": "SBVG",
+    "vesselName": "SURABAYA VOYAGER"
+  },
+  {
+    "vesselCode": "SDBG",
+    "vesselName": "SYDNEY BRIDGE"
+  },
+  {
+    "vesselCode": "SDTR",
+    "vesselName": "SENDAI TRADER"
+  },
+  {
+    "vesselCode": "SHVY",
+    "vesselName": "SHANGHAI VOYAGER"
+  },
+  {
+    "vesselCode": "SKNT",
+    "vesselName": "SINOKOR NIIGATA"
+  },
+  {
+    "vesselCode": "SWAL",
+    "vesselName": "SAWASDEE ALTAIR"
+  },
+  {
+    "vesselCode": "SWAT",
+    "vesselName": "SAWASDEE ATLANTIC"
+  },
+  {
+    "vesselCode": "SWBT",
+    "vesselName": "SAWASDEE BALTIC"
+  },
+  {
+    "vesselCode": "SWCG",
+    "vesselName": "SAWASDEE CHITTAGONG"
+  },
+  {
+    "vesselCode": "SWCP",
+    "vesselName": "SAWASDEE CAPELLA"
+  },
+  {
+    "vesselCode": "SWDN",
+    "vesselName": "SAWASDEE DENEB"
+  },
+  {
+    "vesselCode": "SWIC",
+    "vesselName": "SAWASDEE INCHEON"
+  },
+  {
+    "vesselCode": "SWMM",
+    "vesselName": "SAWASDEE MIMOSA"
+  },
+  {
+    "vesselCode": "SWPC",
+    "vesselName": "SAWASDEE PACIFIC"
+  },
+  {
+    "vesselCode": "SWRG",
+    "vesselName": "SAWASDEE RIGEL"
+  },
+  {
+    "vesselCode": "SWSH",
+    "vesselName": "SAWASDEE SHANGHAI"
+  },
+  {
+    "vesselCode": "SWSI",
+    "vesselName": "SAWASDEE SIRIUS"
+  },
+  {
+    "vesselCode": "SWSP",
+    "vesselName": "SAWASDEE SPICA"
+  },
+  {
+    "vesselCode": "SWSR",
+    "vesselName": "SAWASDEE SUNRISE"
+  },
+  {
+    "vesselCode": "SWTD",
+    "vesselName": "SAWASDEE THAILAND"
+  },
+  {
+    "vesselCode": "SWVG",
+    "vesselName": "SAWASDEE VEGA"
+  },
+  {
+    "vesselCode": "SWXM",
+    "vesselName": "SAWASDEE XIAMEN"
+  },
+  {
+    "vesselCode": "TJVY",
+    "vesselName": "TIANJIN VOYAGER"
+  },
+  {
+    "vesselCode": "TYTR",
+    "vesselName": "TOYAMA TRADER"
+  },
+  {
+    "vesselCode": "USVY",
+    "vesselName": "ULSAN VOYAGER"
+  },
+  {
+    "vesselCode": "VTVY",
+    "vesselName": "VOSTOCHNY VOYAGER"
+  },
+  {
+    "vesselCode": "YKTD",
+    "vesselName": "YOKOHAMA TRADER"
+  },
+  {
+    "vesselCode": "YSVY",
+    "vesselName": "YEOSU VOYAGER"
+  },
+  {
+    "vesselCode": "YTTR",
+    "vesselName": "YANGTZE TRADER"
+  }
+]

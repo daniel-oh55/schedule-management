@@ -1,6 +1,7 @@
 import type { MasterDataSet } from "../types/master";
 import { createId } from "../utils/id";
 import serviceCodes from "./serviceCodes.json";
+import vesselCodes from "./vesselCodes.json";
 
 export const demoMasterData: MasterDataSet = {
   services: serviceCodes.map((service) => ({
@@ -28,10 +29,11 @@ export const demoMasterData: MasterDataSet = {
     defaultDepartureManvHours: Number(departure),
     defaultTerminalHours: Number(terminal),
   })),
-  vessels: [
-    { id: createId("vessel"), vesselCode: "MEBG", vesselName: "MELBOURNE BRIDGE" },
-    { id: createId("vessel"), vesselCode: "KAMB", vesselName: "KARACHI BRIDGE" },
-  ],
+  vessels: vesselCodes.map((vessel) => ({
+    id: createId("vessel"),
+    vesselCode: vessel.vesselCode,
+    vesselName: vessel.vesselName,
+  })),
   distances: [
     ["KRPUS", "KRKAN", 90],
     ["KRKAN", "CNSHA", 397],
