@@ -72,8 +72,35 @@ export function formatDuration(hours: number | null | undefined): string {
   return `${sign}${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
 }
 
+export function formatDurationDayHourMinute(hours: number | null | undefined): string {
+  if (hours === null || hours === undefined || Number.isNaN(hours)) {
+    return "";
+  }
+
+  const sign = hours < 0 ? "-" : "";
+  const absMinutes = Math.round(Math.abs(hours) * 60);
+  const days = Math.floor(absMinutes / 1440);
+  const remain = absMinutes - days * 1440;
+  const hh = Math.floor(remain / 60);
+  const mm = absMinutes % 60;
+
+  return `${sign}${days}D : ${String(hh).padStart(2, "0")}H : ${String(mm).padStart(2, "0")}M`;
+}
+
+function normalizeCompactTime(value: string): string {
+  const trimmed = value.trim();
+  const sign = trimmed.startsWith("-") ? "-" : "";
+  const unsigned = trimmed.replace(/^[+-]/, "");
+
+  if (/^\d{4}$/.test(unsigned)) {
+    return `${sign}${unsigned.slice(0, 2)}:${unsigned.slice(2)}`;
+  }
+
+  return trimmed;
+}
+
 export function parseDurationToHours(value: string): number {
-  const normalized = value.trim().toUpperCase();
+  const normalized = normalizeCompactTime(value).toUpperCase();
   if (!normalized) return 0;
 
   const dayMatch = normalized.match(/(-?\d+(?:\.\d+)?)\s*D/);

@@ -72,11 +72,6 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
     [appContext.proformas, serviceQuery],
   );
 
-  useEffect(() => {
-    if (selectedProformaId && serviceProformas.some((item) => item.header.id === selectedProformaId)) return;
-    setSelectedProformaId(serviceProformas[0]?.header.id ?? "");
-  }, [selectedProformaId, serviceProformas]);
-
   function syncRotationDraftFromText(text: string) {
     const ports = parsePortRotation(text);
     setRotationDraft(Array.from({ length: Math.max(8, ports.length + 1) }, (_, index) => ports[index] ?? ""));
@@ -438,22 +433,16 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
           </div>
         }
       >
-        <div className="grid grid-cols-[140px_220px_110px_120px_110px_110px_120px_auto] gap-2">
+        <div className="grid grid-cols-[140px_220px_110px_180px_120px_110px_110px_120px] gap-2">
           <label>
             <div className="field-label">Service Code</div>
-            <div className="flex gap-1">
-              <ServiceCodeInput
-                id="proforma-service-code"
-                services={appContext.masterData.services}
-                value={serviceQuery}
-                onChange={setServiceQuery}
-                className="field-input"
-              />
-              <button className="action-button h-8 px-2" type="button" onClick={searchServiceCode} title="Search service">
-                <Search size={15} />
-                조회
-              </button>
-            </div>
+            <ServiceCodeInput
+              id="proforma-service-code"
+              services={appContext.masterData.services}
+              value={serviceQuery}
+              onChange={setServiceQuery}
+              className="field-input"
+            />
           </label>
           <label>
             <div className="field-label">Service Name</div>
@@ -479,6 +468,10 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
               placeholder="e.g. 2026 base rotation"
             />
           </label>
+          <button className="action-button mt-[18px] justify-center" type="button" onClick={searchServiceCode} title="Search service">
+            <Search size={15} />
+            조회
+          </button>
           <label>
             <div className="field-label">Default Speed</div>
             <input className="field-input" type="number" step="0.1" value={schedule.header.defaultSpeed} onChange={(e) => updateHeader({ defaultSpeed: Number(e.target.value) })} />

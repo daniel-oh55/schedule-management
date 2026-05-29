@@ -1,4 +1,4 @@
-import { formatDuration } from "../utils/time";
+import { formatDurationDayHourMinute } from "../utils/time";
 
 interface StatusStripProps {
   distanceNm: number;
@@ -19,11 +19,11 @@ export function StatusStrip({
 }: StatusStripProps) {
   const items = [
     ["Distance", `${Math.round(distanceNm).toLocaleString()} NM`],
-    ["Maneuvering", formatDuration(maneuverHours)],
-    ["Terminal", formatDuration(terminalHours)],
-    ["Sea", formatDuration(seaHours)],
-    ["Buffer", formatDuration(bufferHours)],
-    ["Total", formatDuration(totalHours)],
+    ["Maneuvering", formatDurationDayHourMinute(maneuverHours)],
+    ["Terminal", formatDurationDayHourMinute(terminalHours)],
+    ["Sea", formatDurationDayHourMinute(seaHours)],
+    ["Buffer", formatDurationDayHourMinute(bufferHours)],
+    ["Total", formatDurationDayHourMinute(totalHours)],
   ];
 
   return (
