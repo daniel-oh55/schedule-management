@@ -152,7 +152,7 @@ export function LongTermSchedulePage({ appContext }: LongTermSchedulePageProps) 
                 <option value="">Select</option>
                 {filteredProformas.map((item) => (
                   <option key={item.header.id} value={item.header.id}>
-                    {item.header.versionName || "V1"}
+                    {item.header.versionName || "V1"} {item.header.versionRemark ? `- ${item.header.versionRemark}` : ""}
                   </option>
                 ))}
               </select>

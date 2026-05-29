@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { Download, FilePlus2, Plus, Search, Save, Upload } from "lucide-react";
 import type { AppContext } from "../App";
 import { EditableGrid, type GridColumn } from "../components/EditableGrid";
+import { NumberCellInput } from "../components/NumberCellInput";
 import { Panel } from "../components/Panel";
 import { ServiceCodeInput } from "../components/ServiceCodeInput";
 import { StatusStrip } from "../components/StatusStrip";
@@ -12,10 +13,12 @@ import { downloadJson, readJsonFile } from "../utils/jsonTransfer";
 import { createId } from "../utils/id";
 import { findService } from "../utils/service";
 import {
+  applyPortRotationToProformaRows,
   buildProformaRows,
   makeEmptyProforma,
   parsePortRotation,
-  recalculateProformaRows,
+  recalculateEditedProformaRow,
+  recalculateProformaMetrics,
   summarizeProforma,
 } from "../utils/proformaCalculator";
 import {
@@ -42,13 +45,15 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
     return createInitialSchedule();
   });
   const [serviceQuery, setServiceQuery] = useState("");
+  const [selectedProformaId, setSelectedProformaId] = useState("");
   const [rotationDraft, setRotationDraft] = useState<string[]>(Array.from({ length: 8 }, () => ""));
   const [rotationSlotCount, setRotationSlotCount] = useState(8);
+  const [draggedPortIndex, setDraggedPortIndex] = useState<number | null>(null);
 
   useEffect(() => {
     setSchedule((current) => ({
       ...current,
-      rows: recalculateProformaRows(current.header, current.rows, appContext.masterData.distances),
+      rows: recalculateProformaMetrics(current.header, current.rows, appContext.masterData.distances),
     }));
   }, [appContext.masterData.distances]);
 
@@ -66,6 +71,11 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
         : appContext.proformas,
     [appContext.proformas, serviceQuery],
   );
+
+  useEffect(() => {
+    if (selectedProformaId && serviceProformas.some((item) => item.header.id === selectedProformaId)) return;
+    setSelectedProformaId(serviceProformas[0]?.header.id ?? "");
+  }, [selectedProformaId, serviceProformas]);
 
   function syncRotationDraftFromText(text: string) {
     const ports = parsePortRotation(text);
@@ -86,6 +96,13 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
     setRotationDraft((current) => [...current, ""]);
   }
 
+  function rotationTextFromDraft() {
+    return rotationDraft
+      .map((port) => port.trim().toUpperCase())
+      .filter(Boolean)
+      .join(" > ");
+  }
+
   function updateHeader(patch: Partial<ProformaHeader>) {
     setSchedule((current) => {
       const header = {
@@ -100,45 +117,59 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
 
       return {
         header,
-        rows: recalculateProformaRows(header, current.rows, appContext.masterData.distances),
+        rows: recalculateProformaMetrics(header, current.rows, appContext.masterData.distances),
       };
     });
   }
 
   function generateRows() {
-    const portRotationText = rotationDraft
-      .map((port) => port.trim().toUpperCase())
-      .filter(Boolean)
-      .join(" > ");
+    const portRotationText = rotationTextFromDraft();
+    const rotation = parsePortRotation(portRotationText);
 
     setSchedule((current) => ({
       header: { ...current.header, portRotationText, baseStartIso: current.header.baseStartIso || BASE_PROFORMA_START_ISO },
-      rows: buildProformaRows(
-        {
-          ...current.header,
-          portRotationText,
-        },
-        appContext.masterData.ports,
-        appContext.masterData.distances,
-      ),
+      rows:
+        current.rows.length > 0
+          ? applyPortRotationToProformaRows(
+              { ...current.header, portRotationText },
+              current.rows,
+              rotation,
+              appContext.masterData.ports,
+              appContext.masterData.distances,
+            )
+          : buildProformaRows(
+              {
+                ...current.header,
+                portRotationText,
+              },
+              appContext.masterData.ports,
+              appContext.masterData.distances,
+            ),
     }));
   }
 
   function updateRow(rowId: string, patch: Partial<ProformaRow>) {
+    const timingChanged = ["etaIso", "arrivalManvHours", "terminalHours", "departureManvHours"].some((key) =>
+      Object.prototype.hasOwnProperty.call(patch, key),
+    );
+
     setSchedule((current) => {
       const rows = current.rows.map((row) =>
         row.id === rowId
-          ? {
-              ...row,
-              ...patch,
-              manualFields: Array.from(new Set([...row.manualFields, ...Object.keys(patch)])),
-            }
+          ? recalculateEditedProformaRow(
+              {
+                ...row,
+                ...patch,
+                manualFields: Array.from(new Set([...row.manualFields, ...Object.keys(patch)])),
+              },
+              timingChanged,
+            )
           : row,
       );
 
       return {
         ...current,
-        rows: recalculateProformaRows(current.header, rows, appContext.masterData.distances),
+        rows: recalculateProformaMetrics(current.header, rows, appContext.masterData.distances),
       };
     });
   }
@@ -146,14 +177,14 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
   function updateFirstEtaDate(dateText: string) {
     setSchedule((current) => {
       const header = { ...current.header, baseStartIso: setIsoDate(current.header.baseStartIso, dateText) };
-      return { header, rows: recalculateProformaRows(header, current.rows, appContext.masterData.distances) };
+      return { header, rows: recalculateProformaMetrics(header, current.rows, appContext.masterData.distances) };
     });
   }
 
   function updateFirstEtaTime(timeText: string) {
     setSchedule((current) => {
       const header = { ...current.header, baseStartIso: setIsoTime(current.header.baseStartIso, timeText) };
-      return { header, rows: recalculateProformaRows(header, current.rows, appContext.masterData.distances) };
+      return { header, rows: recalculateProformaMetrics(header, current.rows, appContext.masterData.distances) };
     });
   }
 
@@ -162,10 +193,7 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
       ...schedule,
       header: {
         ...schedule.header,
-        portRotationText: rotationDraft
-          .map((port) => port.trim().toUpperCase())
-          .filter(Boolean)
-          .join(" > "),
+        portRotationText: rotationTextFromDraft(),
         versionName: schedule.header.versionName || "V1",
         versionRemark: schedule.header.versionRemark || "",
         updatedAtIso: new Date().toISOString(),
@@ -178,6 +206,7 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
     const saved = storageRepository.getProforma(proformaId);
     if (saved) {
       syncRotationDraftFromText(saved.header.portRotationText);
+      setSelectedProformaId(saved.header.id);
       setSchedule({
         ...saved,
         header: { ...saved.header, versionName: saved.header.versionName || "V1", versionRemark: saved.header.versionRemark || "" },
@@ -189,6 +218,7 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
     setRotationSlotCount(8);
     setRotationDraft(Array.from({ length: 8 }, () => ""));
     setServiceQuery("");
+    setSelectedProformaId("");
     setSchedule(createInitialSchedule());
   }
 
@@ -196,13 +226,22 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
     const serviceCode = serviceQuery.trim().toUpperCase();
     const service = findService(appContext.masterData.services, serviceCode);
     const matched = appContext.proformas
-      .filter((item) => item.header.serviceCode.toUpperCase() === serviceCode.trim().toUpperCase())
+      .filter((item) => item.header.serviceCode.toUpperCase() === serviceCode)
       .sort((a, b) => {
         const aSeed = a.header.id.startsWith("proforma_seed_");
         const bSeed = b.header.id.startsWith("proforma_seed_");
         if (aSeed !== bSeed) return aSeed ? 1 : -1;
         return b.header.updatedAtIso.localeCompare(a.header.updatedAtIso);
-      })[0];
+      })
+      .find((item) => item.header.id === selectedProformaId) ??
+      appContext.proformas
+        .filter((item) => item.header.serviceCode.toUpperCase() === serviceCode)
+        .sort((a, b) => {
+          const aSeed = a.header.id.startsWith("proforma_seed_");
+          const bSeed = b.header.id.startsWith("proforma_seed_");
+          if (aSeed !== bSeed) return aSeed ? 1 : -1;
+          return b.header.updatedAtIso.localeCompare(a.header.updatedAtIso);
+        })[0];
 
     if (matched) {
       load(matched.header.id);
@@ -232,6 +271,7 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
         rows: current.rows.map((row) => ({ ...row, id: createId("pfrow") })),
       };
     });
+    setSelectedProformaId("");
   }
 
   async function importJson(event: ChangeEvent<HTMLInputElement>) {
@@ -240,7 +280,30 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
     const imported = await readJsonFile<ProformaSchedule>(file);
     syncRotationDraftFromText(imported.header.portRotationText);
     setSchedule({ ...imported, header: { ...imported.header, versionRemark: imported.header.versionRemark || "" } });
+    setSelectedProformaId(imported.header.id);
     event.target.value = "";
+  }
+
+  function reorderPort(dragIndex: number, targetIndex: number) {
+    if (dragIndex === targetIndex || !schedule.rows.length) return;
+
+    const ports = [...schedule.rows.map((row) => row.fromPort), schedule.rows[schedule.rows.length - 1].toPort];
+    const [moved] = ports.splice(dragIndex, 1);
+    ports.splice(dragIndex < targetIndex ? targetIndex - 1 : targetIndex, 0, moved);
+
+    setRotationDraft(Array.from({ length: Math.max(8, ports.length + 1) }, (_, index) => ports[index] ?? ""));
+    setRotationSlotCount(Math.max(8, ports.length + 1));
+    setSchedule((current) => ({
+      ...current,
+      header: { ...current.header, portRotationText: ports.join(" > ") },
+      rows: applyPortRotationToProformaRows(
+        { ...current.header, portRotationText: ports.join(" > ") },
+        current.rows,
+        ports,
+        appContext.masterData.ports,
+        appContext.masterData.distances,
+      ),
+    }));
   }
 
   const columns: GridColumn<ProformaRow>[] = [
@@ -249,7 +312,21 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
       key: "from",
       header: "From",
       width: "76px",
-      render: (row) => <input className="grid-cell-input" value={row.fromPort} onChange={(e) => updateRow(row.id, { fromPort: e.target.value.toUpperCase() })} />,
+      render: (row, rowIndex) => (
+        <div
+          draggable
+          className="cursor-move"
+          title="Drag to reorder this port"
+          onDragStart={() => setDraggedPortIndex(rowIndex)}
+          onDragOver={(event) => event.preventDefault()}
+          onDrop={() => {
+            if (draggedPortIndex !== null) reorderPort(draggedPortIndex, rowIndex);
+            setDraggedPortIndex(null);
+          }}
+        >
+          <input className="grid-cell-input" value={row.fromPort} onChange={(e) => updateRow(row.id, { fromPort: e.target.value.toUpperCase() })} />
+        </div>
+      ),
     },
     {
       key: "wharf",
@@ -283,7 +360,13 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
       key: "terminal",
       header: "Terminal Time",
       width: "108px",
-      render: (row) => <TimeInput value={row.terminalHours} onChange={(value) => updateRow(row.id, { terminalHours: value })} />,
+      render: (row) => (
+        <TimeInput
+          value={row.terminalHours}
+          className={row.manualFields.includes("newPortCall") && row.terminalHours === 0 ? "font-bold text-red-600" : ""}
+          onChange={(value) => updateRow(row.id, { terminalHours: value })}
+        />
+      ),
     },
     { key: "etdDay", header: "ETD Day", width: "74px", className: "etd-cell border-l-2 border-amber-300", render: (row) => formatDayName(row.etdIso) },
     { key: "etdTime", header: "ETD Time", width: "82px", className: "etd-cell border-r-2 border-amber-300", render: (row) => formatTime(row.etdIso) },
@@ -298,7 +381,7 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
       key: "speed",
       header: "Speed",
       width: "72px",
-      render: (row) => <input className="grid-cell-input text-right" type="number" step="0.1" value={row.speed} onChange={(e) => updateRow(row.id, { speed: Number(e.target.value) })} />,
+      render: (row) => <NumberCellInput className="text-right" value={row.speed} onChange={(value) => updateRow(row.id, { speed: value })} />,
     },
     { key: "sea", header: "Sea Time", width: "88px", align: "right", className: "auto-cell", render: (row) => formatDuration(row.seaTimeHours) },
     {
@@ -328,8 +411,8 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
         title="Search / Service"
         actions={
           <div className="flex items-center gap-2">
-            <select className="field-input h-8 w-72" value={schedule.header.id} onChange={(event) => load(event.target.value)}>
-              <option value="">Load saved Proforma</option>
+            <select className="field-input h-8 w-72" value={selectedProformaId} onChange={(event) => setSelectedProformaId(event.target.value)}>
+              <option value="">Select Version</option>
               {serviceProformas.map((item) => (
                 <option key={item.header.id} value={item.header.id}>
                   {item.header.versionName || "V1"} {item.header.versionRemark ? `- ${item.header.versionRemark}` : ""}
@@ -366,8 +449,9 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
                 onChange={setServiceQuery}
                 className="field-input"
               />
-              <button className="action-button h-8 w-8 justify-center px-0" type="button" onClick={searchServiceCode} title="Search service">
+              <button className="action-button h-8 px-2" type="button" onClick={searchServiceCode} title="Search service">
                 <Search size={15} />
+                조회
               </button>
             </div>
           </label>
@@ -377,7 +461,7 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
           </label>
           <label>
             <div className="field-label">Version</div>
-            <select className="field-input" value={schedule.header.id} onChange={(event) => load(event.target.value)}>
+            <select className="field-input" value={selectedProformaId} onChange={(event) => setSelectedProformaId(event.target.value)}>
               <option value="">New version</option>
               {serviceProformas.map((item) => (
                 <option key={item.header.id} value={item.header.id}>
@@ -426,7 +510,7 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
             <div className="field-label">Port Rotation</div>
             <div className="flex items-center gap-2">
               <button className="primary-button h-7" type="button" onClick={generateRows}>
-                Generate
+                Apply
               </button>
               <button className="action-button h-7" type="button" onClick={addRotationPort}>
                 <Plus size={14} /> Add Port

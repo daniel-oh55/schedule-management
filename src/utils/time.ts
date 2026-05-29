@@ -66,14 +66,8 @@ export function formatDuration(hours: number | null | undefined): string {
 
   const sign = hours < 0 ? "-" : "";
   const absMinutes = Math.round(Math.abs(hours) * 60);
-  const days = Math.floor(absMinutes / 1440);
-  const remain = absMinutes - days * 1440;
-  const hh = Math.floor(remain / 60);
-  const mm = remain % 60;
-
-  if (days > 0) {
-    return `${sign}${days}D ${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
-  }
+  const hh = Math.floor(absMinutes / 60);
+  const mm = absMinutes % 60;
 
   return `${sign}${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
 }

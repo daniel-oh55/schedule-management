@@ -15,6 +15,31 @@ function getPortMaster(ports: PortMaster[], code: string): PortMaster | undefine
   return ports.find((port) => port.portCode.toUpperCase() === code.toUpperCase());
 }
 
+function rowKey(fromPort: string, toPort: string): string {
+  return `${fromPort.toUpperCase()}__${toPort.toUpperCase()}`;
+}
+
+function updateRowMetrics(row: ProformaRow, header: ProformaHeader, distances: DistanceRecord[], seq: number): ProformaRow {
+  const distanceNm = getDistance(distances, row.fromPort, row.toPort) ?? row.distanceNm;
+  const speed = row.speed || header.defaultSpeed || 0;
+  const sea = seaTimeHours(distanceNm, speed) ?? row.seaTimeHours;
+
+  return {
+    ...row,
+    seq,
+    distanceNm,
+    speed,
+    seaTimeHours: sea,
+    totalTimeHours: sea === null ? null : sea + (row.bufferHours || 0),
+  };
+}
+
+function recalculateSingleRowTimes(row: ProformaRow): ProformaRow {
+  const etbIso = addHoursToIso(row.etaIso, row.arrivalManvHours || 0);
+  const etdIso = addHoursToIso(etbIso, (row.terminalHours || 0) + (row.departureManvHours || 0));
+  return { ...row, etbIso, etdIso };
+}
+
 export function buildProformaRows(
   header: ProformaHeader,
   ports: PortMaster[],
@@ -99,6 +124,78 @@ export function recalculateProformaRows(
     currentEtaIso = addHoursToIso(nextWithoutBuffer, row.bufferHours || 0);
     return recalculated;
   });
+}
+
+export function recalculateProformaMetrics(
+  header: ProformaHeader,
+  rows: ProformaRow[],
+  distances: DistanceRecord[],
+): ProformaRow[] {
+  return rows.map((row, index) => updateRowMetrics(row, header, distances, index + 1));
+}
+
+export function recalculateEditedProformaRow(row: ProformaRow, timingChanged: boolean): ProformaRow {
+  return timingChanged ? recalculateSingleRowTimes(row) : row;
+}
+
+export function applyPortRotationToProformaRows(
+  header: ProformaHeader,
+  rows: ProformaRow[],
+  rotation: string[],
+  ports: PortMaster[],
+  distances: DistanceRecord[],
+): ProformaRow[] {
+  const queues = new Map<string, ProformaRow[]>();
+  rows.forEach((row) => {
+    const key = rowKey(row.fromPort, row.toPort);
+    const queue = queues.get(key) ?? [];
+    queue.push(row);
+    queues.set(key, queue);
+  });
+
+  const nextRows: ProformaRow[] = [];
+
+  for (let index = 0; index < rotation.length - 1; index += 1) {
+    const fromPort = rotation[index];
+    const toPort = rotation[index + 1];
+    const existing = queues.get(rowKey(fromPort, toPort))?.shift();
+
+    if (existing) {
+      nextRows.push(updateRowMetrics(existing, header, distances, index + 1));
+      continue;
+    }
+
+    const master = getPortMaster(ports, fromPort);
+    const distanceNm = getDistance(distances, fromPort, toPort);
+    const speed = header.defaultSpeed || rows[index - 1]?.speed || rows[0]?.speed || 0;
+    const sea = seaTimeHours(distanceNm, speed);
+    const anchorIso = nextRows[index - 1]?.etdIso ?? rows[index]?.etaIso ?? header.baseStartIso ?? BASE_PROFORMA_START_ISO;
+
+    nextRows.push({
+      id: createId("pfrow"),
+      seq: index + 1,
+      fromPort,
+      wharf: master?.defaultWharf ?? "",
+      toPort,
+      bound: "" as BoundCode,
+      etaIso: anchorIso,
+      etbIso: anchorIso,
+      etdIso: anchorIso,
+      arrivalManvHours: 0,
+      terminalHours: 0,
+      departureManvHours: 0,
+      distanceNm,
+      speed,
+      seaTimeHours: sea,
+      bufferHours: 0,
+      totalTimeHours: sea,
+      groupNo: "G1",
+      remark: "",
+      manualFields: ["newPortCall"],
+    });
+  }
+
+  return nextRows;
 }
 
 export function summarizeProforma(rows: ProformaRow[]) {

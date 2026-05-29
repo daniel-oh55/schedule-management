@@ -1,24 +1,27 @@
 import { KeyboardEvent, useEffect, useState } from "react";
-import { formatDuration, parseDurationToHours } from "../utils/time";
 
-interface TimeInputProps {
+interface NumberCellInputProps {
   value: number;
   onChange: (value: number) => void;
   className?: string;
-  disabled?: boolean;
+  step?: string;
 }
 
-export function TimeInput({ value, onChange, className = "", disabled }: TimeInputProps) {
-  const [draft, setDraft] = useState(formatDuration(value));
+export function NumberCellInput({ value, onChange, className = "", step = "0.1" }: NumberCellInputProps) {
+  const [draft, setDraft] = useState(String(value || ""));
 
   useEffect(() => {
-    setDraft(formatDuration(value));
+    setDraft(String(value || ""));
   }, [value]);
 
   function commit() {
-    const next = parseDurationToHours(draft);
-    setDraft(formatDuration(next));
-    onChange(next);
+    const numeric = Number(draft);
+    if (Number.isFinite(numeric)) {
+      onChange(numeric);
+      setDraft(String(numeric));
+    } else {
+      setDraft(String(value || ""));
+    }
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>) {
@@ -30,7 +33,8 @@ export function TimeInput({ value, onChange, className = "", disabled }: TimeInp
   return (
     <input
       className={`grid-cell-input ${className}`}
-      disabled={disabled}
+      inputMode="decimal"
+      step={step}
       value={draft}
       onChange={(event) => setDraft(event.target.value)}
       onBlur={commit}
