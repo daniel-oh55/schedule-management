@@ -238,6 +238,8 @@ export function applyPortRotationToProformaRows(
   });
 
   const nextRows: ProformaRow[] = [];
+  // 새로 추가되거나 변경된 첫 번째 인덱스 추적 (그 앞의 기존 행은 ETA/ETB/ETD 유지)
+  let firstChangedIndex = rotation.length - 1;
 
   for (let index = 0; index < rotation.length - 1; index += 1) {
     const fromPort = rotation[index];
@@ -248,6 +250,9 @@ export function applyPortRotationToProformaRows(
       nextRows.push(updateRowMetrics(existing, header, distances, index + 1));
       continue;
     }
+
+    // 기존에 없던 새 구간 → 이 위치부터 재계산
+    firstChangedIndex = Math.min(firstChangedIndex, index);
 
     const master = getPortMaster(ports, fromPort);
     const distanceNm = getDistance(distances, fromPort, toPort);
@@ -279,7 +284,7 @@ export function applyPortRotationToProformaRows(
     });
   }
 
-  return recalculateFromIndex(header, nextRows, distances, 0);
+  return recalculateFromIndex(header, nextRows, distances, firstChangedIndex);
 }
 
 export function summarizeProforma(rows: ProformaRow[]) {
