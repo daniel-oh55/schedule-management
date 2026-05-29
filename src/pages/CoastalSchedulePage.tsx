@@ -3,9 +3,11 @@ import { RotateCw, Save } from "lucide-react";
 import type { AppContext } from "../App";
 import { EditableGrid, type GridColumn } from "../components/EditableGrid";
 import { Panel } from "../components/Panel";
+import { ServiceCodeInput } from "../components/ServiceCodeInput";
 import { storageRepository } from "../repositories/storageRepository";
 import type { CoastalRow, CoastalSchedule } from "../types/schedule";
 import { createCoastalFromLongTerm, recalculateCoastalRows } from "../utils/coastalCalculator";
+import { findService } from "../utils/service";
 import { formatDate, formatDelay, formatDuration, formatTime, setIsoDate, setIsoTime } from "../utils/time";
 
 interface CoastalSchedulePageProps {
@@ -13,7 +15,15 @@ interface CoastalSchedulePageProps {
 }
 
 export function CoastalSchedulePage({ appContext }: CoastalSchedulePageProps) {
+  const [serviceCode, setServiceCode] = useState(appContext.longTerms[0]?.serviceCode ?? "");
   const [longTermId, setLongTermId] = useState(appContext.longTerms[0]?.id ?? "");
+  const filteredLongTerms = useMemo(
+    () =>
+      serviceCode
+        ? appContext.longTerms.filter((item) => item.serviceCode.toUpperCase() === serviceCode.toUpperCase())
+        : appContext.longTerms,
+    [appContext.longTerms, serviceCode],
+  );
   const selectedLongTerm = useMemo(
     () => appContext.longTerms.find((item) => item.id === longTermId),
     [appContext.longTerms, longTermId],
@@ -21,6 +31,25 @@ export function CoastalSchedulePage({ appContext }: CoastalSchedulePageProps) {
   const voyages = Array.from(new Set(selectedLongTerm?.rows.map((row) => row.voyage) ?? []));
   const [voyage, setVoyage] = useState(voyages[0] ?? "");
   const [schedule, setSchedule] = useState<CoastalSchedule | null>(null);
+  const serviceName = findService(appContext.masterData.services, serviceCode)?.serviceName ?? selectedLongTerm?.serviceCode ?? "";
+
+  function selectServiceCode(code: string) {
+    const nextCode = code.toUpperCase();
+    const nextLongTerm = appContext.longTerms.find((item) => item.serviceCode.toUpperCase() === nextCode);
+    const nextVoyages = Array.from(new Set(nextLongTerm?.rows.map((row) => row.voyage) ?? []));
+    setServiceCode(nextCode);
+    setLongTermId(nextLongTerm?.id ?? "");
+    setVoyage(nextVoyages[0] ?? "");
+    setSchedule(null);
+  }
+
+  function selectLongTerm(id: string) {
+    const nextLongTerm = appContext.longTerms.find((item) => item.id === id);
+    const nextVoyages = Array.from(new Set(nextLongTerm?.rows.map((row) => row.voyage) ?? []));
+    setLongTermId(id);
+    setVoyage(nextVoyages[0] ?? "");
+    setSchedule(null);
+  }
 
   function generate() {
     if (!selectedLongTerm || !voyage) return;
@@ -96,12 +125,25 @@ export function CoastalSchedulePage({ appContext }: CoastalSchedulePageProps) {
           </div>
         }
       >
-        <div className="grid grid-cols-[340px_120px_1fr] gap-2">
+        <div className="grid grid-cols-[140px_260px_340px_120px_1fr] gap-2">
+          <label>
+            <div className="field-label">Service Code</div>
+            <ServiceCodeInput
+              id="coastal-service-code"
+              services={appContext.masterData.services}
+              value={serviceCode}
+              onChange={selectServiceCode}
+            />
+          </label>
+          <label>
+            <div className="field-label">Service Name</div>
+            <input className="field-input readonly-cell" value={serviceName} readOnly />
+          </label>
           <label>
             <div className="field-label">Long Term Schedule</div>
-            <select className="field-input" value={longTermId} onChange={(e) => setLongTermId(e.target.value)}>
+            <select className="field-input" value={longTermId} onChange={(e) => selectLongTerm(e.target.value)}>
               <option value="">Select</option>
-              {appContext.longTerms.map((item) => (
+              {filteredLongTerms.map((item) => (
                 <option key={item.id} value={item.id}>
                   {item.serviceCode} / {item.vesselCode} / {item.voyageFrom}-{item.voyageTo}
                 </option>

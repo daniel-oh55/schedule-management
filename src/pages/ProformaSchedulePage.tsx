@@ -1,14 +1,16 @@
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
-import { Download, FilePlus2, RotateCcw, RotateCw, Save, Upload } from "lucide-react";
+import { Download, FilePlus2, Plus, RotateCw, Save, Upload } from "lucide-react";
 import type { AppContext } from "../App";
 import { EditableGrid, type GridColumn } from "../components/EditableGrid";
 import { Panel } from "../components/Panel";
+import { ServiceCodeInput } from "../components/ServiceCodeInput";
 import { StatusStrip } from "../components/StatusStrip";
 import { TimeInput } from "../components/TimeInput";
 import { storageRepository } from "../repositories/storageRepository";
 import type { ProformaHeader, ProformaRow, ProformaSchedule } from "../types/schedule";
 import { downloadJson, readJsonFile } from "../utils/jsonTransfer";
 import { createId } from "../utils/id";
+import { findService } from "../utils/service";
 import {
   buildProformaRows,
   makeEmptyProforma,
@@ -127,6 +129,14 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
 
   function clear() {
     setSchedule(createInitialSchedule());
+  }
+
+  function selectServiceCode(serviceCode: string) {
+    const service = findService(appContext.masterData.services, serviceCode);
+    updateHeader({
+      serviceCode,
+      serviceName: service?.serviceName ?? "",
+    });
   }
 
   function newVersion() {
@@ -248,11 +258,11 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
                 </option>
               ))}
             </select>
+            <button className="action-button" type="button" onClick={clear}>
+              <Plus size={15} /> New
+            </button>
             <button className="action-button" type="button" onClick={newVersion}>
               <FilePlus2 size={15} /> New Version
-            </button>
-            <button className="action-button" type="button" onClick={clear}>
-              <RotateCcw size={15} /> Clear
             </button>
             <button className="action-button" type="button" onClick={() => downloadJson(`${schedule.header.serviceCode || "proforma"}.json`, schedule)}>
               <Download size={15} /> Export JSON
@@ -270,7 +280,12 @@ export function ProformaSchedulePage({ appContext }: ProformaSchedulePageProps) 
         <div className="grid grid-cols-[140px_220px_110px_120px_110px_110px_120px_1fr_auto] gap-2">
           <label>
             <div className="field-label">Service Code</div>
-            <input className="field-input" value={schedule.header.serviceCode} onChange={(e) => updateHeader({ serviceCode: e.target.value.toUpperCase() })} />
+            <ServiceCodeInput
+              id="proforma-service-code"
+              services={appContext.masterData.services}
+              value={schedule.header.serviceCode}
+              onChange={selectServiceCode}
+            />
           </label>
           <label>
             <div className="field-label">Service Name</div>

@@ -22,9 +22,16 @@ function write<T>(key: string, value: T): void {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
+function normalizeMasterData(value: MasterDataSet): MasterDataSet {
+  return {
+    ...value,
+    services: value.services?.length ? value.services : demoMasterData.services,
+  };
+}
+
 export const storageRepository = {
   getMasterData(): MasterDataSet {
-    return read(KEYS.master, demoMasterData);
+    return normalizeMasterData(read(KEYS.master, demoMasterData));
   },
 
   saveMasterData(value: MasterDataSet): void {

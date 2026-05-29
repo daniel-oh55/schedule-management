@@ -4,9 +4,10 @@ import type { AppContext } from "../App";
 import { EditableGrid, type GridColumn } from "../components/EditableGrid";
 import { Panel } from "../components/Panel";
 import { storageRepository } from "../repositories/storageRepository";
-import type { DistanceRecord, MasterDataSet, PortMaster, VesselMaster } from "../types/master";
+import type { DistanceRecord, MasterDataSet, PortMaster, ServiceMaster, VesselMaster } from "../types/master";
 import { parseDistanceFile } from "../utils/excelDistanceParser";
 import { downloadJson, readJsonFile } from "../utils/jsonTransfer";
+import { parseServiceCodeFile } from "../utils/serviceCodeParser";
 
 interface MasterDataPageProps {
   appContext: AppContext;
@@ -31,10 +32,20 @@ export function MasterDataPage({ appContext }: MasterDataPageProps) {
     event.target.value = "";
   }
 
+  async function handleServiceUpload(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const services = await parseServiceCodeFile(file);
+    setMasterData((current) => ({ ...current, services }));
+    setMessage(`${services.length.toLocaleString()} service codes parsed from ${file.name}.`);
+    event.target.value = "";
+  }
+
   async function importJson(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) return;
-    setMasterData(await readJsonFile<MasterDataSet>(file));
+    const imported = await readJsonFile<MasterDataSet>(file);
+    setMasterData({ ...imported, services: imported.services ?? appContext.masterData.services });
     event.target.value = "";
   }
 
@@ -52,6 +63,13 @@ export function MasterDataPage({ appContext }: MasterDataPageProps) {
     }));
   }
 
+  function updateService(id: string, patch: Partial<ServiceMaster>) {
+    setMasterData((current) => ({
+      ...current,
+      services: current.services.map((service) => (service.id === id ? { ...service, ...patch } : service)),
+    }));
+  }
+
   const portColumns: GridColumn<PortMaster>[] = [
     { key: "code", header: "Port Code", width: "90px", render: (row) => <input className="grid-cell-input" value={row.portCode} onChange={(e) => updatePort(row.id, { portCode: e.target.value.toUpperCase() })} /> },
     { key: "name", header: "Port Name", width: "160px", render: (row) => <input className="grid-cell-input" value={row.portName} onChange={(e) => updatePort(row.id, { portName: e.target.value })} /> },
@@ -65,6 +83,11 @@ export function MasterDataPage({ appContext }: MasterDataPageProps) {
   const vesselColumns: GridColumn<VesselMaster>[] = [
     { key: "code", header: "Vessel Code", width: "110px", render: (row) => <input className="grid-cell-input" value={row.vesselCode} onChange={(e) => updateVessel(row.id, { vesselCode: e.target.value.toUpperCase() })} /> },
     { key: "name", header: "Vessel Name", width: "220px", render: (row) => <input className="grid-cell-input" value={row.vesselName} onChange={(e) => updateVessel(row.id, { vesselName: e.target.value.toUpperCase() })} /> },
+  ];
+
+  const serviceColumns: GridColumn<ServiceMaster>[] = [
+    { key: "code", header: "Service Code", width: "120px", render: (row) => <input className="grid-cell-input" value={row.serviceCode} onChange={(e) => updateService(row.id, { serviceCode: e.target.value.toUpperCase() })} /> },
+    { key: "name", header: "Service Name", width: "260px", render: (row) => <input className="grid-cell-input" value={row.serviceName} onChange={(e) => updateService(row.id, { serviceName: e.target.value.toUpperCase() })} /> },
   ];
 
   const distanceColumns: GridColumn<DistanceRecord>[] = [
@@ -97,16 +120,26 @@ export function MasterDataPage({ appContext }: MasterDataPageProps) {
             <Upload size={15} /> Import Distance Matrix XLSX/XLS
             <input className="hidden" type="file" accept=".xlsx,.xls" onChange={handleDistanceUpload} />
           </label>
+          <label className="action-button cursor-pointer">
+            <Upload size={15} /> Import Service Code XLS/XLSX
+            <input className="hidden" type="file" accept=".xlsx,.xls" onChange={handleServiceUpload} />
+          </label>
           <div className="text-sm text-slate-600">{message || "Distance matrix parser reads the first sheet and converts numeric matrix cells into From-To records."}</div>
         </div>
       </Panel>
 
-      <div className="grid grid-cols-[1fr_360px] gap-3">
-        <Panel title="Port Master">
-          <EditableGrid columns={portColumns} rows={masterData.ports} getRowKey={(row) => row.id} maxHeight="300px" />
+      <div className="grid grid-cols-[1fr_420px] gap-3">
+        <Panel title={`Service Master (${masterData.services.length.toLocaleString()} services)`}>
+          <EditableGrid columns={serviceColumns} rows={masterData.services} getRowKey={(row) => row.id} maxHeight="300px" />
         </Panel>
         <Panel title="Vessel Master">
           <EditableGrid columns={vesselColumns} rows={masterData.vessels} getRowKey={(row) => row.id} maxHeight="300px" />
+        </Panel>
+      </div>
+
+      <div className="grid grid-cols-[1fr] gap-3">
+        <Panel title="Port Master">
+          <EditableGrid columns={portColumns} rows={masterData.ports} getRowKey={(row) => row.id} maxHeight="300px" />
         </Panel>
       </div>
 

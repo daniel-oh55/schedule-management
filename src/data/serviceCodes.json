@@ -1,0 +1,1878 @@
+[
+  {
+    "serviceCode": "AAA",
+    "serviceName": "TEMPORARY VSL FOR MT PICKUP"
+  },
+  {
+    "serviceCode": "ACS",
+    "serviceName": "ASIA CHENNAI SERVICE"
+  },
+  {
+    "serviceCode": "ACS1",
+    "serviceName": "ASIA CHENNAI SERVICE 1 (HMM)"
+  },
+  {
+    "serviceCode": "ADHS",
+    "serviceName": "AD-HOC SERVICE"
+  },
+  {
+    "serviceCode": "AIS",
+    "serviceName": "ASIA INDIA SERVICE"
+  },
+  {
+    "serviceCode": "ANX",
+    "serviceName": "ASIA NEW EXPRESS"
+  },
+  {
+    "serviceCode": "APX",
+    "serviceName": "ASEAN PENDULUM X-PRESS"
+  },
+  {
+    "serviceCode": "BA2",
+    "serviceName": "BANGLADESH - ASIA 2 SERVICE"
+  },
+  {
+    "serviceCode": "BBB",
+    "serviceName": "HANSHIN+KEIHIN"
+  },
+  {
+    "serviceCode": "BBO",
+    "serviceName": "BUNKERING ONLY"
+  },
+  {
+    "serviceCode": "BHS",
+    "serviceName": "BANGKOK HOCHIMINH SERVICE"
+  },
+  {
+    "serviceCode": "BHX",
+    "serviceName": "BANGKOK HOCHIMINH SERVICE"
+  },
+  {
+    "serviceCode": "BIH",
+    "serviceName": "BUSAN INCHEON HAIPHONG SERVICE"
+  },
+  {
+    "serviceCode": "BJX",
+    "serviceName": "BANGKOK JAKARTA EXPRESS"
+  },
+  {
+    "serviceCode": "BKO",
+    "serviceName": "BUNKERING ONLY"
+  },
+  {
+    "serviceCode": "BKP",
+    "serviceName": "BOHAI KYUSHU PENDULUM"
+  },
+  {
+    "serviceCode": "BKS",
+    "serviceName": "BANGKOK SERVICE"
+  },
+  {
+    "serviceCode": "BMX",
+    "serviceName": "BANGKOK MANILA EXPRESS"
+  },
+  {
+    "serviceCode": "BNJ",
+    "serviceName": "BUSAN - NANJING SERVICE"
+  },
+  {
+    "serviceCode": "BNX",
+    "serviceName": "BUSAN NINGBO EXPRESS"
+  },
+  {
+    "serviceCode": "BPS",
+    "serviceName": "BANGKOK PUSAN SERVICE"
+  },
+  {
+    "serviceCode": "BPS1",
+    "serviceName": "BANGKOK PUSAN SERVICE 1"
+  },
+  {
+    "serviceCode": "BSS",
+    "serviceName": "BOHAI SETO SERVICE"
+  },
+  {
+    "serviceCode": "BSS1",
+    "serviceName": "BOHAI SETO SERVICE 1"
+  },
+  {
+    "serviceCode": "BSS2",
+    "serviceName": "BOHAI SETO SERVICE 2"
+  },
+  {
+    "serviceCode": "BSS3",
+    "serviceName": "BOHAI SETO SERVICE 3"
+  },
+  {
+    "serviceCode": "BTS",
+    "serviceName": "BUSAN THAILAND SAIGON"
+  },
+  {
+    "serviceCode": "BXQ",
+    "serviceName": "BUSAN XINGANG QINGTAO"
+  },
+  {
+    "serviceCode": "CCC",
+    "serviceName": "PTK-TSN-DLC"
+  },
+  {
+    "serviceCode": "CGX",
+    "serviceName": "CHINA GULF EXPRESS SERVICE"
+  },
+  {
+    "serviceCode": "CH1",
+    "serviceName": "CHINA-1 SERVICE"
+  },
+  {
+    "serviceCode": "CHS1",
+    "serviceName": "SHANGHAI-HONG KONG SERVICE"
+  },
+  {
+    "serviceCode": "CHS2",
+    "serviceName": "DALIAN-HONG KONG SERVICE"
+  },
+  {
+    "serviceCode": "CHS3",
+    "serviceName": "QINDAO-HONG KONG SERVICE"
+  },
+  {
+    "serviceCode": "CHS4",
+    "serviceName": "XINGANG-HONG KONG SERVICE"
+  },
+  {
+    "serviceCode": "CHT",
+    "serviceName": "CHINA HONGKONG THAI EXPRESS"
+  },
+  {
+    "serviceCode": "CIN",
+    "serviceName": "INC-NBO-SHA SERVICE"
+  },
+  {
+    "serviceCode": "CISC",
+    "serviceName": "CHINA-INDIA SUB CONTINENT SERVICE"
+  },
+  {
+    "serviceCode": "CIX",
+    "serviceName": "CHINA INDIA EXPRESS"
+  },
+  {
+    "serviceCode": "CIX2",
+    "serviceName": "CHINA INDIA EXPRESS 2"
+  },
+  {
+    "serviceCode": "CIX3",
+    "serviceName": "CHINA INDIA EXPRESS 3"
+  },
+  {
+    "serviceCode": "CJ1",
+    "serviceName": "CHINA JAPAN SERVICE 1(PANCON)"
+  },
+  {
+    "serviceCode": "CJH2",
+    "serviceName": "CHINA JAPAN HOKKAIDO SERVICE 2"
+  },
+  {
+    "serviceCode": "CJP",
+    "serviceName": "CHINA JAPAN PENDULUM"
+  },
+  {
+    "serviceCode": "CJP1",
+    "serviceName": "CHINA JAPAN PENDULUM 1"
+  },
+  {
+    "serviceCode": "CJP2",
+    "serviceName": "CHINA JAPAN PENDULUM 2"
+  },
+  {
+    "serviceCode": "CJP3",
+    "serviceName": "CHINA JAPAN PENDULUM 3"
+  },
+  {
+    "serviceCode": "CJS",
+    "serviceName": "PUS-YKK SERVICE(POS KJS10)"
+  },
+  {
+    "serviceCode": "CJT",
+    "serviceName": "CHINA JAPAN TOHOKU SERVICE"
+  },
+  {
+    "serviceCode": "CJX",
+    "serviceName": "CHINA-JAPAN EXPRESS"
+  },
+  {
+    "serviceCode": "CKI",
+    "serviceName": "CHINA KOREA INDONESIA SERVICE"
+  },
+  {
+    "serviceCode": "CKJ",
+    "serviceName": "CHINA-KOREA-JAPAN SERVICE"
+  },
+  {
+    "serviceCode": "CKJ1",
+    "serviceName": "CHINA-KOREA-JAPAN SERVICE1"
+  },
+  {
+    "serviceCode": "CKJ2",
+    "serviceName": "CHINA-KOREA-JAPAN SERVICE 2"
+  },
+  {
+    "serviceCode": "CKR",
+    "serviceName": "CHINA KOREA RUSIA SERVICE"
+  },
+  {
+    "serviceCode": "CKX",
+    "serviceName": "CHINA - KOREA EXPRESS"
+  },
+  {
+    "serviceCode": "CKX1",
+    "serviceName": "CHINA - KOREA EXPRESS1"
+  },
+  {
+    "serviceCode": "CKX2",
+    "serviceName": "CHINA - KOREA EXPRESS2"
+  },
+  {
+    "serviceCode": "CKX3",
+    "serviceName": "PUSAN-NINGBO SERVICE"
+  },
+  {
+    "serviceCode": "CN1",
+    "serviceName": "CHINA 1 SERVICE"
+  },
+  {
+    "serviceCode": "CQD2",
+    "serviceName": "CHINA QINGDAO SERVICE 2 from EAS"
+  },
+  {
+    "serviceCode": "CRS",
+    "serviceName": "CHINA-RUSSIA SERVICE"
+  },
+  {
+    "serviceCode": "CRX",
+    "serviceName": "CHINA RUSSIA EXPRESS"
+  },
+  {
+    "serviceCode": "CSE",
+    "serviceName": "CHINA / SOUTH EAST ASIA EXPRESS"
+  },
+  {
+    "serviceCode": "CSOC",
+    "serviceName": "CSOC (CHINA SOC)"
+  },
+  {
+    "serviceCode": "CTS",
+    "serviceName": "CHINA THAILAND SERVICE"
+  },
+  {
+    "serviceCode": "CTX",
+    "serviceName": "CHINA THAILAND EXPRESS"
+  },
+  {
+    "serviceCode": "CTX1",
+    "serviceName": "CHINA THAILAND EXPRESS 1"
+  },
+  {
+    "serviceCode": "CVC",
+    "serviceName": "CHINA VIETNAM CAMBODIA"
+  },
+  {
+    "serviceCode": "CVS1",
+    "serviceName": "CHINA VLADIVOSTOK SERVICE 1"
+  },
+  {
+    "serviceCode": "CVS2",
+    "serviceName": "CHINA VLADIVOSTOK SERVICE 2"
+  },
+  {
+    "serviceCode": "CVX",
+    "serviceName": "CHINA VLADIVOSTOK EXPRESS"
+  },
+  {
+    "serviceCode": "DIS",
+    "serviceName": "DOD-INC SERVICE"
+  },
+  {
+    "serviceCode": "DJS",
+    "serviceName": "DALIAN-JAPAN HANSHIN SERVICE"
+  },
+  {
+    "serviceCode": "DJS1",
+    "serviceName": "DALIAN - JAPAN KEIHIN SERVICE"
+  },
+  {
+    "serviceCode": "DJS2",
+    "serviceName": "DALIAN - JAPAN HANSHIN SERVICE"
+  },
+  {
+    "serviceCode": "DPS",
+    "serviceName": "DFE - PTK SERVICE"
+  },
+  {
+    "serviceCode": "EBS",
+    "serviceName": "EAST ASIA-BLACK SEA SERVICE"
+  },
+  {
+    "serviceCode": "EBS2",
+    "serviceName": "EAST ASIA-BLACK SEA SERVICE 2"
+  },
+  {
+    "serviceCode": "EOS",
+    "serviceName": "EXCEPTIONAL OPERATION SERVICE"
+  },
+  {
+    "serviceCode": "EPS",
+    "serviceName": "EMPTY POSITIONING SERVICE"
+  },
+  {
+    "serviceCode": "FACS",
+    "serviceName": "ASIA CHENNAI SERVICE"
+  },
+  {
+    "serviceCode": "FDR",
+    "serviceName": "FEEDER"
+  },
+  {
+    "serviceCode": "FDS",
+    "serviceName": "Feeder Service"
+  },
+  {
+    "serviceCode": "FEM",
+    "serviceName": "FAR EAST TO MALAYSIA"
+  },
+  {
+    "serviceCode": "FIX",
+    "serviceName": "FAR EAST INDIA EXPRESS"
+  },
+  {
+    "serviceCode": "FMS",
+    "serviceName": "Far East - Middle East Service"
+  },
+  {
+    "serviceCode": "FMX",
+    "serviceName": "FAR EAST MIDDLE EAST EXPRESS"
+  },
+  {
+    "serviceCode": "FTS",
+    "serviceName": "FAR EAST THAILAND SERVICE"
+  },
+  {
+    "serviceCode": "FTS1",
+    "serviceName": "FAR EAST THILAND SERVICE"
+  },
+  {
+    "serviceCode": "GRS",
+    "serviceName": "GUANGDONG RUSSIA SERVICE"
+  },
+  {
+    "serviceCode": "HAS",
+    "serviceName": "HOKKAI ARIRANG SERVICE"
+  },
+  {
+    "serviceCode": "HCX",
+    "serviceName": "HAIPHONG CHINA EXPRESS"
+  },
+  {
+    "serviceCode": "HHP",
+    "serviceName": "HONGKONG HAIPHONG WEEKLY"
+  },
+  {
+    "serviceCode": "HHS",
+    "serviceName": "HONGKONG HAIPHONG SHUTTLE"
+  },
+  {
+    "serviceCode": "HIX",
+    "serviceName": "HIX"
+  },
+  {
+    "serviceCode": "HP3",
+    "serviceName": "HAIPHONG EXPRESS 3"
+  },
+  {
+    "serviceCode": "HPS",
+    "serviceName": "HAIPONG EXPRESS"
+  },
+  {
+    "serviceCode": "HPS1",
+    "serviceName": "HAIPHONG-PUSAN SERVICE 1"
+  },
+  {
+    "serviceCode": "HPS2",
+    "serviceName": "HAIPHONG-PUSAN SERVICE 2"
+  },
+  {
+    "serviceCode": "HPX",
+    "serviceName": "HOCHIMINH PENDULUM EXPRESS"
+  },
+  {
+    "serviceCode": "HSS",
+    "serviceName": "HONGKONG SHUTTLE SERVICE"
+  },
+  {
+    "serviceCode": "HSX",
+    "serviceName": "HAIPHONG SHUTTLE EXPRESS"
+  },
+  {
+    "serviceCode": "HSX1",
+    "serviceName": "HANSHIN EXPRESS 1"
+  },
+  {
+    "serviceCode": "HSX2",
+    "serviceName": "HANSHIN EXPRESS 2"
+  },
+  {
+    "serviceCode": "HUS",
+    "serviceName": "HAIPHONG ULSAN SERVICE"
+  },
+  {
+    "serviceCode": "HXS",
+    "serviceName": "HOKKAIDO EXPRESS SERVICE"
+  },
+  {
+    "serviceCode": "IBX",
+    "serviceName": "INCHEON BANGKOK EXPRESS SERVICE"
+  },
+  {
+    "serviceCode": "IHP",
+    "serviceName": "INCHEON HAIPHONG PYEONGTAEK SERVICE"
+  },
+  {
+    "serviceCode": "IHP2",
+    "serviceName": "INCHEON HAIPHONG EXPRESS 2"
+  },
+  {
+    "serviceCode": "IHS",
+    "serviceName": "INCHON HONGKONG SERVICE"
+  },
+  {
+    "serviceCode": "IHS1",
+    "serviceName": "INCHON HAIPONG SERVICE 1"
+  },
+  {
+    "serviceCode": "IHS2",
+    "serviceName": "INCHON HONGKONG SERVICE2"
+  },
+  {
+    "serviceCode": "IHX",
+    "serviceName": "INCHEON HONGKONG EXPRESS"
+  },
+  {
+    "serviceCode": "IMS1",
+    "serviceName": "INDONESIA MALAYSIA SERVICE 1"
+  },
+  {
+    "serviceCode": "IMS2",
+    "serviceName": "INDENESIA MALAYSIA SERVICE 2"
+  },
+  {
+    "serviceCode": "INS",
+    "serviceName": "INCHEN NAMPO"
+  },
+  {
+    "serviceCode": "IPS",
+    "serviceName": "INDONESIA/PHILLIPPINES"
+  },
+  {
+    "serviceCode": "IRX",
+    "serviceName": "INDIA RED SEA X-PRESS SERVICE"
+  },
+  {
+    "serviceCode": "IRX2",
+    "serviceName": "INDIA RED SEA X-PRESS SERVICE 2"
+  },
+  {
+    "serviceCode": "ISS",
+    "serviceName": "INCHEON-SHANGHAI SERVICE"
+  },
+  {
+    "serviceCode": "ISX",
+    "serviceName": "IMARI SHIKOKU EXPRESS"
+  },
+  {
+    "serviceCode": "IWS",
+    "serviceName": "INCHEON-WEIHAI SERVICE"
+  },
+  {
+    "serviceCode": "JBX",
+    "serviceName": "JAPAN-BOHAI EXPRESS"
+  },
+  {
+    "serviceCode": "JHK1",
+    "serviceName": "HOKKAIDO SHUTTLE SERVICE"
+  },
+  {
+    "serviceCode": "JHK2",
+    "serviceName": "HOKKAIDO SHUTTLE SERVICE"
+  },
+  {
+    "serviceCode": "JHS",
+    "serviceName": "JAPAN-HONG KONG SERVICE"
+  },
+  {
+    "serviceCode": "JHS3",
+    "serviceName": "JAPAN HANSHIN SERVICE 3 (DJS)"
+  },
+  {
+    "serviceCode": "JHS4",
+    "serviceName": "JAPAN HANSHIN SERVICE 4 (SKR)"
+  },
+  {
+    "serviceCode": "JHS6",
+    "serviceName": "JAPAN HANSHIN SERVICE 6 (DYS)"
+  },
+  {
+    "serviceCode": "JIX",
+    "serviceName": "JAPAN-INDONESIA EXPRESS"
+  },
+  {
+    "serviceCode": "JKH",
+    "serviceName": "JPN KOR HAIPHONG SERVICE"
+  },
+  {
+    "serviceCode": "JKH1",
+    "serviceName": "JAPAN KEIHIN SERVICE 1 (HEUNG-A)"
+  },
+  {
+    "serviceCode": "JKH2",
+    "serviceName": "JAPAN KEIHIN SERVICE 2 (DONGJIN)"
+  },
+  {
+    "serviceCode": "JKH3",
+    "serviceName": "JAPAN KEIHIN SERVICE 3 (DONGYOUNG)"
+  },
+  {
+    "serviceCode": "JKR",
+    "serviceName": "JAPAN-KOREA-RUSSIA SERVICE"
+  },
+  {
+    "serviceCode": "JKS",
+    "serviceName": "JAPAN KYUSHU SERVICE"
+  },
+  {
+    "serviceCode": "JKS1",
+    "serviceName": "Japan Kyushu Shuttle1"
+  },
+  {
+    "serviceCode": "JKS2",
+    "serviceName": "Japan Kyushu Shuttle2"
+  },
+  {
+    "serviceCode": "JKS3",
+    "serviceName": "Japan Kyushu Shuttle3"
+  },
+  {
+    "serviceCode": "JKS4",
+    "serviceName": "Japan Kyushu Shuttle4"
+  },
+  {
+    "serviceCode": "JKS5",
+    "serviceName": "Japan Kyushu Shuttle5"
+  },
+  {
+    "serviceCode": "JKY2",
+    "serviceName": "JAPAN KYUSHU SERVICE2"
+  },
+  {
+    "serviceCode": "JMH2",
+    "serviceName": "JAPAN MOJI,HAKATA SERVICE (DONGJIN)"
+  },
+  {
+    "serviceCode": "JP1",
+    "serviceName": "JAPAN 1"
+  },
+  {
+    "serviceCode": "JPX",
+    "serviceName": "JAPAN PYEONGTAEK EXPRESS"
+  },
+  {
+    "serviceCode": "JSK",
+    "serviceName": "JAPAN SHIKOKU SERVICE"
+  },
+  {
+    "serviceCode": "JSK1",
+    "serviceName": "JAPAN SHIKOKU SERVICE (KMTC)"
+  },
+  {
+    "serviceCode": "JSK3",
+    "serviceName": "JAPAN SHIKOKU SERVICE (KMTC)"
+  },
+  {
+    "serviceCode": "JSK4",
+    "serviceName": "JAPAN SHIKOKU SERVICE 4"
+  },
+  {
+    "serviceCode": "JSK5",
+    "serviceName": "JAPAN SHIKOKU SERVICE 5"
+  },
+  {
+    "serviceCode": "JSK6",
+    "serviceName": "JAPAN SHIKOKU SERVICE 6"
+  },
+  {
+    "serviceCode": "JSN1",
+    "serviceName": "JAPAN SETONAIKAI SERVICE 1"
+  },
+  {
+    "serviceCode": "JSS1",
+    "serviceName": "JAPAN SHIMIZU ISEWAN SVC (PANCON)"
+  },
+  {
+    "serviceCode": "JSW",
+    "serviceName": "JAPAN SOUTH WEST SERVICE"
+  },
+  {
+    "serviceCode": "JSW1",
+    "serviceName": "JAPAN SOUTH WEST SERVICE 1"
+  },
+  {
+    "serviceCode": "JSW2",
+    "serviceName": "JAPAN SOUTH WEST SERVICE 2"
+  },
+  {
+    "serviceCode": "JTH4",
+    "serviceName": "JAPAN TOHOKU SERVICE 4"
+  },
+  {
+    "serviceCode": "JTK3",
+    "serviceName": "JAPAN-TAIWAN-VIETNAM EXPRESS SERVIC"
+  },
+  {
+    "serviceCode": "JTS",
+    "serviceName": "JAPAN TOMAKOMAI SERVICE"
+  },
+  {
+    "serviceCode": "JWP",
+    "serviceName": "JINTANG WEIFANG PYEONGTAEK SERVICE"
+  },
+  {
+    "serviceCode": "KBX",
+    "serviceName": "KOREA BOHAI EXPRESS"
+  },
+  {
+    "serviceCode": "KCB",
+    "serviceName": "KOREA CHINA BANGLADESH EXPRESS"
+  },
+  {
+    "serviceCode": "KCJ",
+    "serviceName": "KOREA CHINA JAPAN SERVICE"
+  },
+  {
+    "serviceCode": "KCM",
+    "serviceName": "KOREA CHINA MALAYSIA SERVICE"
+  },
+  {
+    "serviceCode": "KCM1",
+    "serviceName": "KOREA-CHINA- MANILA SERVICE"
+  },
+  {
+    "serviceCode": "KCM2",
+    "serviceName": "KOREA CHINA MALAYSIA SERVICE 2"
+  },
+  {
+    "serviceCode": "KCM3",
+    "serviceName": "KOREA CHINA MALAYSIA SERVICE 3"
+  },
+  {
+    "serviceCode": "KCT",
+    "serviceName": "KOREA CHINA THAILAND SERVICE"
+  },
+  {
+    "serviceCode": "KCT1",
+    "serviceName": "KOREA CHINA THAILAND 1"
+  },
+  {
+    "serviceCode": "KDS",
+    "serviceName": "KOREA-DALIAN SERVICE"
+  },
+  {
+    "serviceCode": "KDS1",
+    "serviceName": "KOREA-DALIAN SERVICE #1"
+  },
+  {
+    "serviceCode": "KDS10",
+    "serviceName": "KOREA-DALIAN SERVICE #10"
+  },
+  {
+    "serviceCode": "KDS11",
+    "serviceName": "KOREA-DALIAN SERVICE #11"
+  },
+  {
+    "serviceCode": "KDS12",
+    "serviceName": "KOREA-DALIAN SERVICE #12"
+  },
+  {
+    "serviceCode": "KDS2",
+    "serviceName": "KOREA-DALIAN SERVICE #2"
+  },
+  {
+    "serviceCode": "KDS3",
+    "serviceName": "KOREA-DALIAN SERVICE #3"
+  },
+  {
+    "serviceCode": "KDS4",
+    "serviceName": "KOREA-DALIAN SERVICE #4"
+  },
+  {
+    "serviceCode": "KDS5",
+    "serviceName": "KOREA-DALIAN SERVICE #5"
+  },
+  {
+    "serviceCode": "KDS6",
+    "serviceName": "KOREA/DALIAN SERVICE #6"
+  },
+  {
+    "serviceCode": "KDS7",
+    "serviceName": "KOREA/DALIAN SERVICE #7"
+  },
+  {
+    "serviceCode": "KDS8",
+    "serviceName": "KOREA-DALIAN SERVICE #8"
+  },
+  {
+    "serviceCode": "KDS9",
+    "serviceName": "KOREA-DALIAN SERVICE #9"
+  },
+  {
+    "serviceCode": "KDX",
+    "serviceName": "KOREA-DALIAN-XINGANG EXPRESS"
+  },
+  {
+    "serviceCode": "KDX1",
+    "serviceName": "PUSAN-DALIAN-XINGANG SERVICE #1"
+  },
+  {
+    "serviceCode": "KDX2",
+    "serviceName": "KOREA DALIAN EXPRESS 2"
+  },
+  {
+    "serviceCode": "KH2",
+    "serviceName": "KOREA HAIPHONG"
+  },
+  {
+    "serviceCode": "KHP",
+    "serviceName": "KOREA-HAIPHONG SERVICE"
+  },
+  {
+    "serviceCode": "KHP2",
+    "serviceName": "KOREA-HAIPHONG SERVICE 2"
+  },
+  {
+    "serviceCode": "KHPR",
+    "serviceName": "KOREA HAIPHONG RUSSIA"
+  },
+  {
+    "serviceCode": "KHS1",
+    "serviceName": "KOREA-HOCHMINH SERVICE"
+  },
+  {
+    "serviceCode": "KHS2",
+    "serviceName": "KOREA-HOCHIMINH SERVICE 2"
+  },
+  {
+    "serviceCode": "KHX1",
+    "serviceName": "KEIHIN EXPRESS 1"
+  },
+  {
+    "serviceCode": "KHX2",
+    "serviceName": "KEIHIN EXPRESS 2"
+  },
+  {
+    "serviceCode": "KHX3",
+    "serviceName": "KEIHIN EXPRESS 3"
+  },
+  {
+    "serviceCode": "KI1",
+    "serviceName": "KOREA INDONESIA 1"
+  },
+  {
+    "serviceCode": "KI2",
+    "serviceName": "KOREA - INDONESIA 2"
+  },
+  {
+    "serviceCode": "KI23WK",
+    "serviceName": "KOREA INDONESIA SERVICE 2 (3WK)"
+  },
+  {
+    "serviceCode": "KIS",
+    "serviceName": "KOREA INDONESIA SERVICE"
+  },
+  {
+    "serviceCode": "KIS1",
+    "serviceName": "KOREA INDONESIA SERVICE 1"
+  },
+  {
+    "serviceCode": "KIS2",
+    "serviceName": "KOREA INDONESIA SERVICE 2"
+  },
+  {
+    "serviceCode": "KIX",
+    "serviceName": "KOREA INDONESIA EXPRESS SERVICE"
+  },
+  {
+    "serviceCode": "KJD",
+    "serviceName": "KOREA-JINTANG-DALIAN SERVICE"
+  },
+  {
+    "serviceCode": "KJH",
+    "serviceName": "KOREA JAPAN HANSHIN SERVICE"
+  },
+  {
+    "serviceCode": "KJK",
+    "serviceName": "KOREA JAPAN KEHIN SERVICE"
+  },
+  {
+    "serviceCode": "KJK1",
+    "serviceName": "KOREA JAPAN KEHIN SERVICE"
+  },
+  {
+    "serviceCode": "KJK2",
+    "serviceName": "KOREA JAPAN KEHIN SERVICE 2"
+  },
+  {
+    "serviceCode": "KJNS",
+    "serviceName": "KOREA-NIIGATA SERVICE"
+  },
+  {
+    "serviceCode": "KJS1",
+    "serviceName": "KOREA - JAPAN KEIHIN SERVICE #1"
+  },
+  {
+    "serviceCode": "KJS10",
+    "serviceName": "Korea - Japan Service (STXPANOCEAN)"
+  },
+  {
+    "serviceCode": "KJS11",
+    "serviceName": "KOREA-JAPAN SERVICE 11(OPR BY NAM)"
+  },
+  {
+    "serviceCode": "KJS12",
+    "serviceName": "KOREA-JAPAN SERVICE(STX, TEMP)"
+  },
+  {
+    "serviceCode": "KJS13",
+    "serviceName": "KOREA-JAPAN SERVICE 13 (JPMYJ ONLY)"
+  },
+  {
+    "serviceCode": "KJS14",
+    "serviceName": "KOREA-JAPAN SERVICE 14 (JPMYJ)"
+  },
+  {
+    "serviceCode": "KJS15",
+    "serviceName": "KOREA - JAPAN SERVICE 15(JPHIJ)"
+  },
+  {
+    "serviceCode": "KJS2",
+    "serviceName": "HANSHIN SERVICE"
+  },
+  {
+    "serviceCode": "KJS3",
+    "serviceName": "KOREA-TOMAKOMAI-ISHIKARI SERVICE"
+  },
+  {
+    "serviceCode": "KJS4",
+    "serviceName": "KOREA - WEST JAPAN SERVICE 4"
+  },
+  {
+    "serviceCode": "KJS5",
+    "serviceName": "KOREA - JAPAN SERVICE 5"
+  },
+  {
+    "serviceCode": "KJS6",
+    "serviceName": "KOREA - JAPAN SERVICE 6(OPR BY HAS)"
+  },
+  {
+    "serviceCode": "KJS7",
+    "serviceName": "HANSHIN SERVICE"
+  },
+  {
+    "serviceCode": "KJS8",
+    "serviceName": "KEIHIN SERVICE 1 (NAMSUNG)"
+  },
+  {
+    "serviceCode": "KJS9",
+    "serviceName": "KOREA-JAPAN SERVICE 9"
+  },
+  {
+    "serviceCode": "KJSH",
+    "serviceName": "KOREA-HANSHIN SERVICE"
+  },
+  {
+    "serviceCode": "KJSS",
+    "serviceName": "KOREA-KEIHIN SERVICE"
+  },
+  {
+    "serviceCode": "KJTS",
+    "serviceName": "KOREA-TOMAKOMAI SERVICE"
+  },
+  {
+    "serviceCode": "KJW1",
+    "serviceName": "KOREA JAPAN WEST 1"
+  },
+  {
+    "serviceCode": "KJW2",
+    "serviceName": "KOREA JAPAN WEST 2"
+  },
+  {
+    "serviceCode": "KJX",
+    "serviceName": "KOREA JAKARTA EXPRESS"
+  },
+  {
+    "serviceCode": "KLS1",
+    "serviceName": "KOREA- LIANYUNGANG SERVICE 1"
+  },
+  {
+    "serviceCode": "KLS2",
+    "serviceName": "KOREA- LIANYUNGANG SERVICE 2"
+  },
+  {
+    "serviceCode": "KME",
+    "serviceName": "KOREA MIDDLE-EAST EXPRESS"
+  },
+  {
+    "serviceCode": "KMS",
+    "serviceName": "KOREA MALAYSIA SERVICE"
+  },
+  {
+    "serviceCode": "KMX",
+    "serviceName": "KOREA - MALAYSIA EXPRESS"
+  },
+  {
+    "serviceCode": "KMX1",
+    "serviceName": "KOREA-MALAYSIA EXPRESS1"
+  },
+  {
+    "serviceCode": "KNS",
+    "serviceName": "KOREA-NINGBO SERVICE"
+  },
+  {
+    "serviceCode": "KNS1",
+    "serviceName": "KOREA-NINGBO SERVICE #1"
+  },
+  {
+    "serviceCode": "KNS2",
+    "serviceName": "KOREA - NINGBO SERVICE #2"
+  },
+  {
+    "serviceCode": "KNS3",
+    "serviceName": "KOREA-NINGBO SERVICE#3"
+  },
+  {
+    "serviceCode": "KNS4",
+    "serviceName": "KOREA-NINGBO SERVICE #4"
+  },
+  {
+    "serviceCode": "KNS5",
+    "serviceName": "KOREA-NINGBO SERVICE #5"
+  },
+  {
+    "serviceCode": "KNS6",
+    "serviceName": "KOREA-NINGBO SERVICE #6"
+  },
+  {
+    "serviceCode": "KNS7",
+    "serviceName": "KOREA-NINGBO SERVICE #7"
+  },
+  {
+    "serviceCode": "KNS8",
+    "serviceName": "KOREA-NINGBO SERVICE #8"
+  },
+  {
+    "serviceCode": "KNX",
+    "serviceName": "KOREA NANSHA EXPRESS"
+  },
+  {
+    "serviceCode": "KPI",
+    "serviceName": "KOREA PHILIPPINE INDONESIA"
+  },
+  {
+    "serviceCode": "KPS",
+    "serviceName": "KOREA PHILIPPINES SAIGON SERVICE"
+  },
+  {
+    "serviceCode": "KPX",
+    "serviceName": "KOREA PHILIPPINES EXPRESS"
+  },
+  {
+    "serviceCode": "KQD",
+    "serviceName": "KOREA - QINGDAO - DALIAN SERVICE"
+  },
+  {
+    "serviceCode": "KQS",
+    "serviceName": "KOREA-QINGDAO SERVICE"
+  },
+  {
+    "serviceCode": "KQS1",
+    "serviceName": "KOREA-QINGDAO SERVICE"
+  },
+  {
+    "serviceCode": "KQS2",
+    "serviceName": "KOREA-QINGTAO SERVICE #2"
+  },
+  {
+    "serviceCode": "KQS3",
+    "serviceName": "KOREA-QINGTAO SERVICE #3"
+  },
+  {
+    "serviceCode": "KQS4",
+    "serviceName": "KOREA-QINGTAO SERVICE #4"
+  },
+  {
+    "serviceCode": "KRS",
+    "serviceName": "KOREA-RUSSIA SERVICE"
+  },
+  {
+    "serviceCode": "KSC",
+    "serviceName": "KOREA-SOUTH CHINA SERVICE"
+  },
+  {
+    "serviceCode": "KSL",
+    "serviceName": "KOREA-SHANGHAI-LIANYUNGANG SERVICE"
+  },
+  {
+    "serviceCode": "KSS",
+    "serviceName": "KOREA-SHANGHAI SERVICE"
+  },
+  {
+    "serviceCode": "KSS1",
+    "serviceName": "KOREA-SHANGHAI SERVICE(1)"
+  },
+  {
+    "serviceCode": "KSS2",
+    "serviceName": "KOREA-SHANGHAI SERVICE #2"
+  },
+  {
+    "serviceCode": "KSS3",
+    "serviceName": "KOREA-SHANGHAI SERVICE #3"
+  },
+  {
+    "serviceCode": "KSS4",
+    "serviceName": "KOREA-SHANGHAI SERVICE #4"
+  },
+  {
+    "serviceCode": "KSS5",
+    "serviceName": "KOREA-SHANGHAI SERVICE #5"
+  },
+  {
+    "serviceCode": "KSS6",
+    "serviceName": "KOREA-SHANGHAI SERVICE #6"
+  },
+  {
+    "serviceCode": "KSS7",
+    "serviceName": "KOREA-SHANGHAI SERVICE #7"
+  },
+  {
+    "serviceCode": "KSS8",
+    "serviceName": "KOREA-SHANGHAI SERVICE #8"
+  },
+  {
+    "serviceCode": "KST",
+    "serviceName": "Korea Shipping Thailand"
+  },
+  {
+    "serviceCode": "KSX",
+    "serviceName": "KOREA STRAIT EXPRESS"
+  },
+  {
+    "serviceCode": "KSX1",
+    "serviceName": "KOREA STRAIT EXPRESS 1"
+  },
+  {
+    "serviceCode": "KTH",
+    "serviceName": "KOREA-TAIWAN-HONG KONG SERVICE"
+  },
+  {
+    "serviceCode": "KTM",
+    "serviceName": "KOREA-TAIWAN-MALAYSIA SERVICE"
+  },
+  {
+    "serviceCode": "KTS",
+    "serviceName": "KOREA-THAILAND SERVICE"
+  },
+  {
+    "serviceCode": "KTS1",
+    "serviceName": "KOREA THAILAND SERVICE 1"
+  },
+  {
+    "serviceCode": "KVS",
+    "serviceName": "KOREA VIETNAM SERVICE"
+  },
+  {
+    "serviceCode": "KVT",
+    "serviceName": "KOREA VIETNAM THAILAND SERVICE"
+  },
+  {
+    "serviceCode": "KVX",
+    "serviceName": "KOREA VIETNAM EXPRESS"
+  },
+  {
+    "serviceCode": "KWS",
+    "serviceName": "KOREA-WEIHAI SERVICE"
+  },
+  {
+    "serviceCode": "KWS1",
+    "serviceName": "PUSAN - WEIHAI SERVICE 1"
+  },
+  {
+    "serviceCode": "KWS2",
+    "serviceName": "PUSAN - WEIHAI SERVICE 2"
+  },
+  {
+    "serviceCode": "KXS",
+    "serviceName": "KOREA-XINGANG SERVICE"
+  },
+  {
+    "serviceCode": "KXS1",
+    "serviceName": "KOREA/XINGANG SERVICE #1"
+  },
+  {
+    "serviceCode": "KXS10",
+    "serviceName": "KOREA-XINGANG SEERVICE #10"
+  },
+  {
+    "serviceCode": "KXS11",
+    "serviceName": "KOREA-XINGANG SERVICE # 11"
+  },
+  {
+    "serviceCode": "KXS2",
+    "serviceName": "KOREA/XINGANG SERVICE #2"
+  },
+  {
+    "serviceCode": "KXS3",
+    "serviceName": "KOREA-XINGANG SERVICE #3"
+  },
+  {
+    "serviceCode": "KXS4",
+    "serviceName": "KOREA-XINGANG SERVICE #4"
+  },
+  {
+    "serviceCode": "KXS5",
+    "serviceName": "KOREA-XINGANG SERVICE #5"
+  },
+  {
+    "serviceCode": "KXS6",
+    "serviceName": "KOREA / XINGANG SERVICE #6"
+  },
+  {
+    "serviceCode": "KXS7",
+    "serviceName": "KOREA / XINGANG SERVICE #7"
+  },
+  {
+    "serviceCode": "KXS8",
+    "serviceName": "PUSAN - XINGANG SERVICE #8"
+  },
+  {
+    "serviceCode": "KXS9",
+    "serviceName": "KOREA-XINGANG SERVICE #9"
+  },
+  {
+    "serviceCode": "KYX",
+    "serviceName": "KYX"
+  },
+  {
+    "serviceCode": "KZS",
+    "serviceName": "KOREA-ZHANGJIAGANG-NANJING SERVICE"
+  },
+  {
+    "serviceCode": "LMT",
+    "serviceName": "SKHK SCHEDULE"
+  },
+  {
+    "serviceCode": "LSM",
+    "serviceName": "LSM TEST"
+  },
+  {
+    "serviceCode": "MHX1",
+    "serviceName": "MOJI HAKATA EXPRESS 1"
+  },
+  {
+    "serviceCode": "MHX2",
+    "serviceName": "MOJI HAKATA EXPRESS 2"
+  },
+  {
+    "serviceCode": "MKS1",
+    "serviceName": "MALAYSIA KOREA SERVICE"
+  },
+  {
+    "serviceCode": "MKX",
+    "serviceName": "KOREA-MANILA EXPRESS"
+  },
+  {
+    "serviceCode": "MSS",
+    "serviceName": "MALACCA STRAIT SERVICE"
+  },
+  {
+    "serviceCode": "MSX",
+    "serviceName": "MASAN - SHIMONOSEKI EXPRESS"
+  },
+  {
+    "serviceCode": "MSX1",
+    "serviceName": "MASAN - SHIMONOSEKI EXPRESS 1"
+  },
+  {
+    "serviceCode": "MSX2",
+    "serviceName": "MASAN - SHIMONOSEKI EXPRESS 2"
+  },
+  {
+    "serviceCode": "MSX3",
+    "serviceName": "MASAN-SHIMONOSEKI EXPRESS 3"
+  },
+  {
+    "serviceCode": "MSX4",
+    "serviceName": "MASAN-SHIMONOSEKI EXPRESS 4"
+  },
+  {
+    "serviceCode": "MSX5",
+    "serviceName": "MASAN SHIMONOSEKI EXPRESS 5"
+  },
+  {
+    "serviceCode": "NBP",
+    "serviceName": "NEW BOHAI PENDULUM"
+  },
+  {
+    "serviceCode": "NBX",
+    "serviceName": "NINGBO-PUSAN SERVICE"
+  },
+  {
+    "serviceCode": "NCH",
+    "serviceName": "NEW CHINA HOKKAIDO SERVICE"
+  },
+  {
+    "serviceCode": "NCI",
+    "serviceName": "NEW CHINA INDONESIA SERVICE"
+  },
+  {
+    "serviceCode": "NEX",
+    "serviceName": "NORTH EUROPE EXPRESS"
+  },
+  {
+    "serviceCode": "NHM",
+    "serviceName": "NEW HOCHIMINH MALAYSIA SERVICE"
+  },
+  {
+    "serviceCode": "NHS",
+    "serviceName": "NEW HOCHIMINH SERVICE"
+  },
+  {
+    "serviceCode": "NIL",
+    "serviceName": "UNKNOWN SERVICE CODE"
+  },
+  {
+    "serviceCode": "NIS",
+    "serviceName": "NORTH CHINA - INDONESIA SERVICE"
+  },
+  {
+    "serviceCode": "NIX",
+    "serviceName": "North China - Indonesia Express"
+  },
+  {
+    "serviceCode": "NKJ",
+    "serviceName": "NEW KOREA JAPAN"
+  },
+  {
+    "serviceCode": "NKJ1",
+    "serviceName": "NEW KOREA JAPAN #1"
+  },
+  {
+    "serviceCode": "NKJ2",
+    "serviceName": "NEW KOREA JAPAN (HAS OPERATION)"
+  },
+  {
+    "serviceCode": "NKJ3",
+    "serviceName": "NEW KOREA JAPAN #3"
+  },
+  {
+    "serviceCode": "NKM",
+    "serviceName": "NEW KOREA MALAYSIA SERVICE"
+  },
+  {
+    "serviceCode": "NKS",
+    "serviceName": "NORTH KOREA SERVICE"
+  },
+  {
+    "serviceCode": "NKX",
+    "serviceName": "NANJING KOREA EXPRESS"
+  },
+  {
+    "serviceCode": "NSB",
+    "serviceName": "N. EAST ASIA-S. EAST ASIA SERVICE B"
+  },
+  {
+    "serviceCode": "NSC",
+    "serviceName": "NEW SOUTH CHINA"
+  },
+  {
+    "serviceCode": "NSC19",
+    "serviceName": "NEW SOUTH CHINA (~2019)"
+  },
+  {
+    "serviceCode": "NTH",
+    "serviceName": "NEW THAILAND SERVICE (HMM)"
+  },
+  {
+    "serviceCode": "NTS",
+    "serviceName": "NEW THAILAND SERVICE"
+  },
+  {
+    "serviceCode": "NTS1",
+    "serviceName": "NEW THAILAND SERVICE 1"
+  },
+  {
+    "serviceCode": "NTX",
+    "serviceName": "NEW THAILAND EXPRESS"
+  },
+  {
+    "serviceCode": "NWX",
+    "serviceName": "NORTH CHINA INDIA WEST COAST XPRESS"
+  },
+  {
+    "serviceCode": "OTH",
+    "serviceName": "OTHERS"
+  },
+  {
+    "serviceCode": "PA2",
+    "serviceName": "PAN ASIA SERVICE II"
+  },
+  {
+    "serviceCode": "PAX",
+    "serviceName": "PUSAN-AKITA SERVICE"
+  },
+  {
+    "serviceCode": "PCI",
+    "serviceName": "PUSAN CHINA INDONESIA SERVICE"
+  },
+  {
+    "serviceCode": "PCI2",
+    "serviceName": "PUSAN CHINA INDONESIA 2"
+  },
+  {
+    "serviceCode": "PCM",
+    "serviceName": "PUSAN CHINA MALAYSIA SERVICE"
+  },
+  {
+    "serviceCode": "PCS",
+    "serviceName": "PYUNGTAEK-CHINA SERVICE"
+  },
+  {
+    "serviceCode": "PDR",
+    "serviceName": "PENDULUM 1"
+  },
+  {
+    "serviceCode": "PDR2",
+    "serviceName": "PENDULUM2"
+  },
+  {
+    "serviceCode": "PDS1",
+    "serviceName": "PUSAN-DALIAN SERVICE #1"
+  },
+  {
+    "serviceCode": "PDS2",
+    "serviceName": "PUSAN-DALIAN SERVICE #1"
+  },
+  {
+    "serviceCode": "PDX",
+    "serviceName": "PTK-XIN-DLC-PTK SERVICE"
+  },
+  {
+    "serviceCode": "PDX1",
+    "serviceName": "PTK-TSN-DLC-WEI SERVICE"
+  },
+  {
+    "serviceCode": "PDX2",
+    "serviceName": "PTK-XIN SERVICE2"
+  },
+  {
+    "serviceCode": "PDX3",
+    "serviceName": "PTK-DLC-XIN SERVICE #3"
+  },
+  {
+    "serviceCode": "PDX4",
+    "serviceName": "PTK-DLC SERVICE4"
+  },
+  {
+    "serviceCode": "PDX5",
+    "serviceName": "PYONGTAEK-DALIAN EXPRESS #5"
+  },
+  {
+    "serviceCode": "PHS",
+    "serviceName": "PYUNGTAEK-HONG KONG SERVICE"
+  },
+  {
+    "serviceCode": "PHX",
+    "serviceName": "PORTKELANG-HONGKONG EXPRESS"
+  },
+  {
+    "serviceCode": "PJS",
+    "serviceName": "PYONGTAEK-JAPAN SERVICE"
+  },
+  {
+    "serviceCode": "PJX",
+    "serviceName": "PUSAN JAKARTA EXPRESS"
+  },
+  {
+    "serviceCode": "PKH",
+    "serviceName": "PUS/KAN/HKG"
+  },
+  {
+    "serviceCode": "PKS",
+    "serviceName": "KOREA-PORT KELANG SERVICE"
+  },
+  {
+    "serviceCode": "PKX",
+    "serviceName": "PUSAN KYUSHU EXPRESS"
+  },
+  {
+    "serviceCode": "PLS",
+    "serviceName": "PYONGTAEK-LONGKOU SERVICE"
+  },
+  {
+    "serviceCode": "PMH",
+    "serviceName": "PUSAN MANILA HOKKAIDO"
+  },
+  {
+    "serviceCode": "PMX",
+    "serviceName": "PUSAN MANILA EXPRESS"
+  },
+  {
+    "serviceCode": "PNW",
+    "serviceName": "PACIFIC NORTH-WEST SERVICE"
+  },
+  {
+    "serviceCode": "PNX",
+    "serviceName": "PUSAN NAHA EXPRESS"
+  },
+  {
+    "serviceCode": "PQS",
+    "serviceName": "PYONGTAEK-QINGDAO SERVICE"
+  },
+  {
+    "serviceCode": "PQS1",
+    "serviceName": "PYONGTAEK - QINGDAO SERVICE #1"
+  },
+  {
+    "serviceCode": "PQS2",
+    "serviceName": "PTK-TAO-PTK-TSN-DLC SERVICE"
+  },
+  {
+    "serviceCode": "PQX",
+    "serviceName": "PYONGTAEK-QINGDAO-XINGANG SERVICE"
+  },
+  {
+    "serviceCode": "PSS",
+    "serviceName": "PYONGTAEK-SHANGHAI SERVICE"
+  },
+  {
+    "serviceCode": "PTK",
+    "serviceName": "PUSAN-TOMAKOMAI SERVICE"
+  },
+  {
+    "serviceCode": "PTP",
+    "serviceName": "PTK/TAO/PTK/TAO"
+  },
+  {
+    "serviceCode": "PTP1",
+    "serviceName": "PTK/TAO/PTK/TAO"
+  },
+  {
+    "serviceCode": "PTS",
+    "serviceName": "PUSAN - TOMAKOMAI SERVICE"
+  },
+  {
+    "serviceCode": "PTX",
+    "serviceName": "PUSAN-TOMAKOMAI SERVICE"
+  },
+  {
+    "serviceCode": "PVS",
+    "serviceName": "PUSAN VOSTOCHNY SERVICE"
+  },
+  {
+    "serviceCode": "PVS1",
+    "serviceName": "PUSAN VLADIVOSTOK SERVICE"
+  },
+  {
+    "serviceCode": "PVS2",
+    "serviceName": "PUSAN VLADIVOSTOK SERVICE 2"
+  },
+  {
+    "serviceCode": "PVS3",
+    "serviceName": "PUSAN VLADIVOSTOK SERVICE 3"
+  },
+  {
+    "serviceCode": "PVS4",
+    "serviceName": "PUSAN VOSTOCHNY SERVICE 4"
+  },
+  {
+    "serviceCode": "PVS5",
+    "serviceName": "PUSAN VLADIVOSTOK SERVICE 5"
+  },
+  {
+    "serviceCode": "PVS6",
+    "serviceName": "PUSAN VOSTOCHNY SERVICE 6"
+  },
+  {
+    "serviceCode": "PWS",
+    "serviceName": "PYONGTAEK-WEIHAI SERVICE"
+  },
+  {
+    "serviceCode": "PXS",
+    "serviceName": "PYONGTAEK-XINGANG SERVICE"
+  },
+  {
+    "serviceCode": "QIS",
+    "serviceName": "QINGDAO GYEONGIN SERVICE"
+  },
+  {
+    "serviceCode": "QJS1",
+    "serviceName": "QINGDAO - JAPAN SERVICE 1"
+  },
+  {
+    "serviceCode": "QJS2",
+    "serviceName": "QINGDAO-JAPAN HANSHIN SERVICE"
+  },
+  {
+    "serviceCode": "QRS",
+    "serviceName": "QINGDAO RUSSIA SERVICE"
+  },
+  {
+    "serviceCode": "RET",
+    "serviceName": "TEST"
+  },
+  {
+    "serviceCode": "RTA",
+    "serviceName": "ROUND THE ASIA"
+  },
+  {
+    "serviceCode": "SCR",
+    "serviceName": "SOUTH CHINA RUSSIA"
+  },
+  {
+    "serviceCode": "SCS",
+    "serviceName": "SOUTH CHINA SERVICE"
+  },
+  {
+    "serviceCode": "SCX",
+    "serviceName": "SOUTH CHINA EXPRESS"
+  },
+  {
+    "serviceCode": "SETO",
+    "serviceName": "PUSAN SETO SREVICE"
+  },
+  {
+    "serviceCode": "SETO2",
+    "serviceName": "PUSAN SETO2 SERVICE"
+  },
+  {
+    "serviceCode": "SETO3",
+    "serviceName": "PUSAN SETO3 SERVICE"
+  },
+  {
+    "serviceCode": "SETO4",
+    "serviceName": "PUSAN SETO4 SERVICE"
+  },
+  {
+    "serviceCode": "SETO5",
+    "serviceName": "PUSAN SETO5 SERVICE"
+  },
+  {
+    "serviceCode": "SFS",
+    "serviceName": "SPECIAL FEEDER SERVICE"
+  },
+  {
+    "serviceCode": "SGX1",
+    "serviceName": "SINOKOR GULF SERVICE 1"
+  },
+  {
+    "serviceCode": "SGX2",
+    "serviceName": "SINOKOR GULF EXPRESS 2"
+  },
+  {
+    "serviceCode": "SH1",
+    "serviceName": "SHANGHAI 1"
+  },
+  {
+    "serviceCode": "SHS",
+    "serviceName": "SINGAPORE HOCHIMINH SERVICE"
+  },
+  {
+    "serviceCode": "SHS1",
+    "serviceName": "SINGAPORE HOCHIMINH SERVICE 1"
+  },
+  {
+    "serviceCode": "SIR",
+    "serviceName": "SINGAPORE-YANGON SERVICE"
+  },
+  {
+    "serviceCode": "SIS",
+    "serviceName": "SINOKOR INDIA SERVICE"
+  },
+  {
+    "serviceCode": "SIS2",
+    "serviceName": "SINOKOR INDIA SERVICE 2"
+  },
+  {
+    "serviceCode": "SIS2K",
+    "serviceName": "SIS2 KHH ADD"
+  },
+  {
+    "serviceCode": "SIS3",
+    "serviceName": "SINOKOR INDIA SERVICE 3"
+  },
+  {
+    "serviceCode": "SIX",
+    "serviceName": "SINOKOR INDONESIA EXPRESS"
+  },
+  {
+    "serviceCode": "SJS1",
+    "serviceName": "SHANGHAI - JAPAN KEIHIN SERVICE"
+  },
+  {
+    "serviceCode": "SJS2",
+    "serviceName": "SHANGHAI - JAPAN HANSHIN SERVICE"
+  },
+  {
+    "serviceCode": "SJS3",
+    "serviceName": "SHANGHAI-JAPAN KEIHIN SERVICE 3"
+  },
+  {
+    "serviceCode": "SKX",
+    "serviceName": "SHIKOKU EXPRESS"
+  },
+  {
+    "serviceCode": "SKX1",
+    "serviceName": "SHIKOKU EXPRESS SERVICE 1"
+  },
+  {
+    "serviceCode": "SKX2",
+    "serviceName": "SHIKOKU EXPRESS2"
+  },
+  {
+    "serviceCode": "SMX",
+    "serviceName": "SINOKOR MEXICO EXPRESS"
+  },
+  {
+    "serviceCode": "SOC",
+    "serviceName": "SPACE CHARTER LANE"
+  },
+  {
+    "serviceCode": "SRS",
+    "serviceName": "SHANGHAI RUSSIA SERVICE"
+  },
+  {
+    "serviceCode": "SRS2",
+    "serviceName": "SHANGHAI RUSSIA SERVICE 2"
+  },
+  {
+    "serviceCode": "SRS3",
+    "serviceName": "SHANGHAI RUSSIA SERVICE 3"
+  },
+  {
+    "serviceCode": "SSOC",
+    "serviceName": "SSOC (SEASIA SOC)"
+  },
+  {
+    "serviceCode": "STP",
+    "serviceName": "SHANGHAI TOMAKOMAI PANDULUM"
+  },
+  {
+    "serviceCode": "STS",
+    "serviceName": "SHANGHAI TOHOKU SERVICE"
+  },
+  {
+    "serviceCode": "STV",
+    "serviceName": "SINGAPORE THAILAND VIETNAM"
+  },
+  {
+    "serviceCode": "SVS",
+    "serviceName": "SHANGHAI VLADIVOSTOK SERVICE"
+  },
+  {
+    "serviceCode": "SVS1",
+    "serviceName": "SHANGHAI VLADIVOSTOK SERVICE 1"
+  },
+  {
+    "serviceCode": "SVS2",
+    "serviceName": "SHANGHAI VLADIVOSTOK SERVICE 2"
+  },
+  {
+    "serviceCode": "TBN",
+    "serviceName": "NOT FIXED"
+  },
+  {
+    "serviceCode": "TBN 6",
+    "serviceName": "TO BE NOMINATED 6"
+  },
+  {
+    "serviceCode": "TBN1",
+    "serviceName": "TO BE NOMINATED 1"
+  },
+  {
+    "serviceCode": "TBN11",
+    "serviceName": "TBN11"
+  },
+  {
+    "serviceCode": "TBN2",
+    "serviceName": "TO BE NOMINATED 2"
+  },
+  {
+    "serviceCode": "TBN3",
+    "serviceName": "TO BE NOMINATED 3"
+  },
+  {
+    "serviceCode": "TBN4",
+    "serviceName": "TO BE NOMINATED 4"
+  },
+  {
+    "serviceCode": "TBN5",
+    "serviceName": "TO BE NOMINATED 5"
+  },
+  {
+    "serviceCode": "TBN7",
+    "serviceName": "TO BE NOMINATED 7"
+  },
+  {
+    "serviceCode": "TBN8",
+    "serviceName": "TO BE NOMINATED 8"
+  },
+  {
+    "serviceCode": "TDX",
+    "serviceName": "THAI DURIAN EXPRESS"
+  },
+  {
+    "serviceCode": "THS",
+    "serviceName": "TOHUKU HOKAIDO SERVICE"
+  },
+  {
+    "serviceCode": "THS1",
+    "serviceName": "TOHOKU HOKKAIDO SERVICE1"
+  },
+  {
+    "serviceCode": "THS2",
+    "serviceName": "TOHUKU HOKAIDO SERVICE2"
+  },
+  {
+    "serviceCode": "THS3",
+    "serviceName": "TOHUKU HOKAIDO SERVICE3"
+  },
+  {
+    "serviceCode": "THS4",
+    "serviceName": "TOHUKU HOKKAIDO SERVICE4"
+  },
+  {
+    "serviceCode": "THS5",
+    "serviceName": "TOHUKU HOKKAIDO SERVICE5"
+  },
+  {
+    "serviceCode": "TIS",
+    "serviceName": "THAILAND INDONESIA SERVICE"
+  },
+  {
+    "serviceCode": "TIS1",
+    "serviceName": "TAICANG INCHEON SERVICE"
+  },
+  {
+    "serviceCode": "TIS2",
+    "serviceName": "INCHEON-NANDONG-TAICANG SERVICE"
+  },
+  {
+    "serviceCode": "TJS",
+    "serviceName": "THAILAND - JAKARTA SERVICE"
+  },
+  {
+    "serviceCode": "TJS2",
+    "serviceName": "TIANJIN - JAPAN HANSHIN SERVICE 2"
+  },
+  {
+    "serviceCode": "TKQS",
+    "serviceName": "TEMPORARY KOREA-QINGDAO SERVICE"
+  },
+  {
+    "serviceCode": "TKX",
+    "serviceName": "THAILAND KOREA EXPRESS"
+  },
+  {
+    "serviceCode": "TMV",
+    "serviceName": "THAILAND MALAYSIA VIETNAM SVC"
+  },
+  {
+    "serviceCode": "TPX1",
+    "serviceName": "KOREA-XINGANG SERVICE #2 FROM EAS"
+  },
+  {
+    "serviceCode": "TPX2",
+    "serviceName": "KOREA/XINGANG SERVICE #1 FROM EAS"
+  },
+  {
+    "serviceCode": "TR1",
+    "serviceName": "THAI-RANGOON SERVICES 1"
+  },
+  {
+    "serviceCode": "TSI1",
+    "serviceName": "TAICANG INCHEON SERVICE"
+  },
+  {
+    "serviceCode": "TST",
+    "serviceName": "STP REVISE MAKING(NGB ADD)"
+  },
+  {
+    "serviceCode": "TST1",
+    "serviceName": "TEST"
+  },
+  {
+    "serviceCode": "TST2",
+    "serviceName": "PSS REVISE MAKING"
+  },
+  {
+    "serviceCode": "TST3",
+    "serviceName": "PQX - KUV 추가"
+  },
+  {
+    "serviceCode": "TST4",
+    "serviceName": "KQS IN KUV"
+  },
+  {
+    "serviceCode": "TST5",
+    "serviceName": "KQS PTK ADD"
+  },
+  {
+    "serviceCode": "TVS",
+    "serviceName": "TOYOHASHI VLADIVOSTOK SERVICE"
+  },
+  {
+    "serviceCode": "TVX",
+    "serviceName": "THAILAND VIETNAM XPRESS"
+  },
+  {
+    "serviceCode": "UHS",
+    "serviceName": "ULSAN HONGKONG SERVICE"
+  },
+  {
+    "serviceCode": "UHS1",
+    "serviceName": "ULSAN HONGKONG SERVICE 1"
+  },
+  {
+    "serviceCode": "UHS2",
+    "serviceName": "ULSAN HONGKONG SERVICE 2"
+  },
+  {
+    "serviceCode": "VCS",
+    "serviceName": "VLADIVOSTOK COMMERCIAL TML SERVICE"
+  },
+  {
+    "serviceCode": "VHS",
+    "serviceName": "VIETNAM HONGKONG SERVICE"
+  },
+  {
+    "serviceCode": "VHS1",
+    "serviceName": "VIETNAM HONGKONG SERVICE 1"
+  },
+  {
+    "serviceCode": "VTS",
+    "serviceName": "VIETNAM - THAILAND SERVICE"
+  },
+  {
+    "serviceCode": "WIN",
+    "serviceName": "WEST INDIA NORTH-CHINA SERVICE"
+  },
+  {
+    "serviceCode": "WKSS",
+    "serviceName": "WANHAI KOREA-SOUTH EAST ASIA"
+  }
+]

@@ -15,6 +15,12 @@ export interface VesselMaster {
   vesselName: string;
 }
 
+export interface ServiceMaster {
+  id: string;
+  serviceCode: string;
+  serviceName: string;
+}
+
 export interface DistanceRecord {
   id: string;
   fromPort: string;
@@ -23,6 +29,7 @@ export interface DistanceRecord {
 }
 
 export interface MasterDataSet {
+  services: ServiceMaster[];
   ports: PortMaster[];
   vessels: VesselMaster[];
   distances: DistanceRecord[];

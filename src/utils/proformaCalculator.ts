@@ -128,14 +128,13 @@ export function makeEmptyProforma(): ProformaSchedule {
   return {
     header: {
       id: createId("proforma"),
-      serviceCode: "SIS2",
-      serviceName: "SINOKOR INDIA SERVICE 2",
-      versionName: "V1",
-      defaultSpeed: 14.8,
-      cycleDays: 42,
-      cycleWeeks: 6,
-      portRotationText:
-        "KRPUS > KRKAN > CNSHA > CNNGB > CNSHK > MYPKL > INNSA > INMUN > PKKHI > MYPKL > KRPUS",
+      serviceCode: "",
+      serviceName: "",
+      versionName: "",
+      defaultSpeed: 0,
+      cycleDays: 0,
+      cycleWeeks: 0,
+      portRotationText: "",
       baseStartIso: BASE_PROFORMA_START_ISO,
       updatedAtIso: now,
     },

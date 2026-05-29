@@ -1,7 +1,13 @@
 import type { MasterDataSet } from "../types/master";
 import { createId } from "../utils/id";
+import serviceCodes from "./serviceCodes.json";
 
 export const demoMasterData: MasterDataSet = {
+  services: serviceCodes.map((service) => ({
+    id: createId("service"),
+    serviceCode: service.serviceCode,
+    serviceName: service.serviceName,
+  })),
   ports: [
     ["KRPUS", "Busan", "KR", "PNC01", 1, 1, 24],
     ["KRKAN", "Kwangyang", "KR", "KAN04", 1.5, 1.5, 13],

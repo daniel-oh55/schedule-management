@@ -5,9 +5,11 @@ import type { AppContext } from "../App";
 import { EditableGrid, type GridColumn } from "../components/EditableGrid";
 import { MiniCalendar } from "../components/MiniCalendar";
 import { Panel } from "../components/Panel";
+import { ServiceCodeInput } from "../components/ServiceCodeInput";
 import { storageRepository } from "../repositories/storageRepository";
 import type { LongTermRow, LongTermSchedule } from "../types/schedule";
 import { generateLongTermSchedule } from "../utils/longTermGenerator";
+import { findService } from "../utils/service";
 import { combineDateTime, formatDate, formatDuration, formatTime, setIsoDate, setIsoTime } from "../utils/time";
 
 interface LongTermSchedulePageProps {
@@ -15,6 +17,7 @@ interface LongTermSchedulePageProps {
 }
 
 export function LongTermSchedulePage({ appContext }: LongTermSchedulePageProps) {
+  const [serviceCode, setServiceCode] = useState(appContext.proformas[0]?.header.serviceCode ?? "");
   const [proformaId, setProformaId] = useState(appContext.proformas[0]?.header.id ?? "");
   const [vesselCode, setVesselCode] = useState(appContext.masterData.vessels[0]?.vesselCode ?? "");
   const [vesselName, setVesselName] = useState(appContext.masterData.vessels[0]?.vesselName ?? "");
@@ -24,10 +27,20 @@ export function LongTermSchedulePage({ appContext }: LongTermSchedulePageProps) 
   const [calendarMonthIso, setCalendarMonthIso] = useState(firstEtaIso);
   const [schedule, setSchedule] = useState<LongTermSchedule | null>(null);
 
+  const filteredProformas = useMemo(
+    () =>
+      serviceCode
+        ? appContext.proformas.filter((item) => item.header.serviceCode.toUpperCase() === serviceCode.toUpperCase())
+        : appContext.proformas,
+    [appContext.proformas, serviceCode],
+  );
+
   const selectedProforma = useMemo(
     () => appContext.proformas.find((item) => item.header.id === proformaId),
     [appContext.proformas, proformaId],
   );
+
+  const serviceName = findService(appContext.masterData.services, serviceCode)?.serviceName ?? selectedProforma?.header.serviceName ?? "";
 
   const highlightedWeekday = selectedProforma
     ? getDay(new Date(selectedProforma.rows[0]?.etaIso || selectedProforma.header.baseStartIso))
@@ -37,6 +50,16 @@ export function LongTermSchedulePage({ appContext }: LongTermSchedulePageProps) 
     const vessel = appContext.masterData.vessels.find((item) => item.vesselCode === code);
     setVesselCode(code);
     setVesselName(vessel?.vesselName ?? "");
+  }
+
+  function selectServiceCode(code: string) {
+    const nextCode = code.toUpperCase();
+    setServiceCode(nextCode);
+    const nextProforma = appContext.proformas.find(
+      (item) => item.header.serviceCode.toUpperCase() === nextCode,
+    );
+    setProformaId(nextProforma?.header.id ?? "");
+    setSchedule(null);
   }
 
   function generate() {
@@ -52,7 +75,9 @@ export function LongTermSchedulePage({ appContext }: LongTermSchedulePageProps) 
 
   function clear() {
     const defaultVessel = appContext.masterData.vessels[0];
-    setProformaId(appContext.proformas[0]?.header.id ?? "");
+    const defaultProforma = appContext.proformas[0];
+    setServiceCode(defaultProforma?.header.serviceCode ?? "");
+    setProformaId(defaultProforma?.header.id ?? "");
     setVesselCode(defaultVessel?.vesselCode ?? "");
     setVesselName(defaultVessel?.vesselName ?? "");
     setVoyageFrom("2601");
@@ -106,12 +131,25 @@ export function LongTermSchedulePage({ appContext }: LongTermSchedulePageProps) 
         <div className="grid grid-cols-[1fr_260px] gap-3">
           <div className="grid grid-cols-6 gap-2">
             <label>
-              <div className="field-label">Service</div>
+              <div className="field-label">Service Code</div>
+              <ServiceCodeInput
+                id="longterm-service-code"
+                services={appContext.masterData.services}
+                value={serviceCode}
+                onChange={selectServiceCode}
+              />
+            </label>
+            <label className="col-span-2">
+              <div className="field-label">Service Name</div>
+              <input className="field-input readonly-cell" value={serviceName} readOnly />
+            </label>
+            <label>
+              <div className="field-label">Proforma Version</div>
               <select className="field-input" value={proformaId} onChange={(e) => setProformaId(e.target.value)}>
                 <option value="">Select</option>
-                {appContext.proformas.map((item) => (
+                {filteredProformas.map((item) => (
                   <option key={item.header.id} value={item.header.id}>
-                    {item.header.serviceCode} / {item.header.versionName || "V1"}
+                    {item.header.versionName || "V1"}
                   </option>
                 ))}
               </select>
